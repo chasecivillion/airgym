@@ -21,7 +21,7 @@ function Signin() {
             .then(r => {
                 if (r.status === 200) {
                     r.json()
-                    console.log('success')
+                        .then(result => console.log(result))
                 } else {
                     console.log('failure')
                 }
