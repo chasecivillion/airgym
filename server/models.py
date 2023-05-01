@@ -1,0 +1,60 @@
+from sqlalchemy_serializer import SerializerMixin
+from sqlalchemy.orm import validates
+from sqlalchemy.ext.associationproxy import association_proxy
+from config import db
+
+
+class User(db.Model, SerializerMixin):
+
+    __tablename__ = 'users'
+
+    serialize_rules = ('-created_at', '-updated_at')
+
+    id = db.Column(db.Integer, primary_key=True)
+    username = db.Column(db.String)
+    email = db.Column(db.String, nullable=False)
+
+    created_at = db.Column(db.DateTime, server_default=db.func.now())
+    updated_at = db.Column(db.DateTime, onupdate=db.func.now())
+
+    pods = db.relationship('Pod', back_populates='user',
+                           cascade="all, delete-orphan")
+    hotels = association_proxy('pods', 'hotel')
+
+
+class Hotel(db.Model, SerializerMixin):
+
+    __tablename__ = 'hotels'
+
+    serialize_rules = ('-pods','-users')
+
+    id = db.Column(db.Integer, primary_key=True)
+    name = db.Column(db.String)
+    images = db.Column(db.String)
+    latitude = db.Column(db.Integer)
+    longitude = db.Column(db.Integer)
+    city = db.Column(db.String)
+
+    pods = db.relationship('Pod', back_populates='hotel',
+                           cascade="all, delete-orphan")
+    users = association_proxy('pods', 'user')
+
+class Pod(db.Model, SerializerMixin):
+
+    __tablename__ = 'pods'
+
+    serialize_rules = ('-created_at', '-updated_at')
+
+    id = db.Column(db.Integer, primary_key=True)
+    name = db.Column(db.String)
+    description = db.Column(db.String)
+    image = db.Column(db.String)
+
+    created_at = db.Column(db.DateTime, server_default=db.func.now())
+    updated_at = db.Column(db.DateTime, onupdate=db.func.now())
+
+    user_id = db.Column(db.Integer, db.ForeignKey('users.id'))
+    hotel_id = db.Column(db.Integer, db.ForeignKey('hotels.id'))
+
+    user = db.relationship('User', back_populates='pods')
+    hotel = db.relationship('Hotel', back_populates='pods')
