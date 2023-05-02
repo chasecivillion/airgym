@@ -1,8 +1,8 @@
-"""create tables
+"""edited nullable on idtoken users
 
-Revision ID: f14257fb4e62
+Revision ID: 165d5f5c2f84
 Revises: 
-Create Date: 2023-04-27 21:12:04.160465
+Create Date: 2023-05-01 17:02:12.308522
 
 """
 from alembic import op
@@ -10,7 +10,7 @@ import sqlalchemy as sa
 
 
 # revision identifiers, used by Alembic.
-revision = 'f14257fb4e62'
+revision = '165d5f5c2f84'
 down_revision = None
 branch_labels = None
 depends_on = None
@@ -24,13 +24,13 @@ def upgrade():
     sa.Column('images', sa.String(), nullable=True),
     sa.Column('latitude', sa.Integer(), nullable=True),
     sa.Column('longitude', sa.Integer(), nullable=True),
-    sa.Column('country_code', sa.String(), nullable=True),
+    sa.Column('city', sa.String(), nullable=True),
     sa.PrimaryKeyConstraint('id')
     )
     op.create_table('users',
     sa.Column('id', sa.Integer(), nullable=False),
-    sa.Column('username', sa.String(), nullable=True),
-    sa.Column('email', sa.String(), nullable=True),
+    sa.Column('email', sa.String(), nullable=False),
+    sa.Column('idToken', sa.String(), nullable=True),
     sa.Column('created_at', sa.DateTime(), server_default=sa.text('(CURRENT_TIMESTAMP)'), nullable=True),
     sa.Column('updated_at', sa.DateTime(), nullable=True),
     sa.PrimaryKeyConstraint('id')
@@ -38,7 +38,6 @@ def upgrade():
     op.create_table('pods',
     sa.Column('id', sa.Integer(), nullable=False),
     sa.Column('name', sa.String(), nullable=True),
-    sa.Column('description', sa.String(), nullable=True),
     sa.Column('image', sa.String(), nullable=True),
     sa.Column('created_at', sa.DateTime(), server_default=sa.text('(CURRENT_TIMESTAMP)'), nullable=True),
     sa.Column('updated_at', sa.DateTime(), nullable=True),

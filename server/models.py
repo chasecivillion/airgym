@@ -11,8 +11,8 @@ class User(db.Model, SerializerMixin):
     serialize_rules = ('-created_at', '-updated_at')
 
     id = db.Column(db.Integer, primary_key=True)
-    username = db.Column(db.String)
     email = db.Column(db.String, nullable=False)
+    idToken = db.Column(db.String)
 
     created_at = db.Column(db.DateTime, server_default=db.func.now())
     updated_at = db.Column(db.DateTime, onupdate=db.func.now())
@@ -47,7 +47,6 @@ class Pod(db.Model, SerializerMixin):
 
     id = db.Column(db.Integer, primary_key=True)
     name = db.Column(db.String)
-    description = db.Column(db.String)
     image = db.Column(db.String)
 
     created_at = db.Column(db.DateTime, server_default=db.func.now())

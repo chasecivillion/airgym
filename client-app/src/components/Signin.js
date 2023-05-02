@@ -1,7 +1,10 @@
-import React, { useState } from 'react';
-import { NavLink } from 'react-router-dom';
+import React, { useContext, useState } from 'react';
+import { NavLink, useNavigate } from 'react-router-dom';
+import { GlobalContext } from './GlobalContext';
 
 function Signin() {
+    // const navigate = useNavigate()
+    const {currentUser, setCurrentUser} = useContext(GlobalContext)
 
     const [email, setEmail] = useState("")
     const [password, setPassword] = useState("")
@@ -13,7 +16,7 @@ function Signin() {
 
     const handleSubmit = (e) => {
         e.preventDefault()
-        fetch("http://127.0.0.1:5555/sign_in", {
+        fetch("http://127.0.0.1:5555/", {
             method: "POST",
             headers: { "Content-Type": "application/json" },
             body: JSON.stringify(user)
@@ -21,7 +24,13 @@ function Signin() {
             .then(r => {
                 if (r.status === 200) {
                     r.json()
-                        .then(result => console.log(result))
+                        .then(result => {
+                            // const idToken = result[0]['idToken']
+                            // const email = result[1]['email']
+                            console.log(result)
+                            // setCurrentUser(email)
+                            // navigate("/", { state: { idToken } })
+                        })
                 } else {
                     console.log('failure')
                 }

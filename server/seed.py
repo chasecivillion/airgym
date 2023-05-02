@@ -13,7 +13,7 @@ with app.app_context():
 
    print("Creating Users...")
 
-   u1 = User(username='chasecivillion', email='beaukim3@gmail.com')
+   u1 = User(idToken='chasecivillion', email='beaukim3@gmail.com')
    db.session.add(u1)
 
    print("Creating Hotels...")
@@ -31,7 +31,7 @@ with app.app_context():
 
    print("Creating Pods...")
 
-   p1 = Pod(name='basic', description='basic', 
+   p1 = Pod(name='basic', 
             image="https://cdn.shopify.com/s/files/1/0247/7326/3445/products/BuildYour121_1080x.jpg?v=1669045190", 
             user_id=u1.id, hotel_id=h1.id)
    db.session.add(p1)

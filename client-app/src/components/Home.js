@@ -13,7 +13,7 @@ function Home() {
     const [hotelID, setHotelID] = useState(0)
 
     useEffect(() => {
-        fetch('http://127.0.0.1:5555/hotels')
+        fetch('http://127.0.0.1:5555/')
             .then(r => r.json())
             .then(obj => setHotels(obj))
     }, [])

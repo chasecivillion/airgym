@@ -10,12 +10,12 @@ import Pods from './Pods';
 
 function App() {
 
-  const [value, setValue] = useState(false)
+  const [currentUser, setCurrentUser] = useState("")
 
   return (
     <div>
+      <GlobalContext.Provider value={{ currentUser, setCurrentUser }}>
       <Header />
-      <GlobalContext.Provider value={{ value, setValue }}>
         <Routes>
           <Route path="/" element={<Home />} />
           <Route path="/sign_up" element={<Signup />} />

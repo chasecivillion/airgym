@@ -16,7 +16,6 @@ function Pods() {
   const [showBreezeModal, setShowBreezeModal] = useState(false);
   const [showCloudModal, setShowCloudModal] = useState(false);
   const [showVaporModal, setShowVaporModal] = useState(false);
-  const [test, setTest] = useState(false);
 
   const chooseModal = (e) => {
       if (e.target.id === "breeze") {
@@ -43,10 +42,10 @@ function Pods() {
                     </div>
                 </div>
                     <div onClick={chooseModal} style={{ cursor: 'pointer' }}>
-                    <BusinessPod/>
+                        <BusinessPod/>
                     </div>
                 <div onClick={chooseModal} style={{ cursor: 'pointer' }}>
-                    <FirstClassPod/>
+                        <FirstClassPod/>
                 </div>
             </section>
                 <BreezeModal open={showBreezeModal} onClose={()=> setShowBreezeModal(false)} />

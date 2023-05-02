@@ -12,6 +12,8 @@ flask-restful = "*"
 flask-cors = "*"
 pyrebase4 = "*"
 selenium = "*"
+flask-session = "*"
+firebase-admin = "*"
 
 [dev-packages]
 
