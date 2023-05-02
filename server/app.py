@@ -59,46 +59,36 @@ def create_account():
         )
     
 
-# @app.route('/sign_in', methods =['GET','POST'])
-# @cross_origin(methods=['GET','POST'], supports_credentials=True)
-# def sign_in():
-#     if request.method == 'POST':
-#         data = request.get_json()
-#         email = data['email']
-#         password = data['password']
-#         try:
-#             user = auth.sign_in_with_email_and_password(email, password)
-#             idToken = auth.get_account_info(user['idToken'])
-#             localId = idToken['users'][0]['localId']
-#             session['user'] = email
-#         except:
-#             return redirect('/')
-#         response = make_response(
-#             # [{'idToken': f'{localId}'},
-#             #     {'email': f'{idToken["users"][0]["email"]}'}],
-#             {'cookie':'cookie'},
-#             200
-#         )
-#         response.set_cookie('user',
-#                             'user')
-#         return response
-    
-@app.route('/makecookie')
-def makeCookie():
+@app.route('/sign_in', methods =['POST'])
+@cross_origin(methods=['POST'], supports_credentials=True)
+def sign_in():
+    data = request.get_json()
+    email = data['email']
+    password = data['password']
+    try:
+        user = auth.sign_in_with_email_and_password(email, password)
+        idToken = auth.get_account_info(user['idToken'])
+        localId = idToken['users'][0]['localId']
+        session['user'] = email
+    except:
+        return redirect('/')
     response = make_response(
-        {'cookies': 'yes'}, 200
+        [{'idToken': f'{localId}'},
+            {'email': f'{idToken["users"][0]["email"]}'}],
+        200
     )
-    response.set_cookie(
-        'user', 'user')
+    response.set_cookie('idToken', localId)
+    response.set_cookie('email', email)
     return response
 
 
 @app.route('/cookies')
 def getCookie():
-    name = request.cookies.get('user')
-    return f'Cookies: {name}'
-
-
+    value = request.cookies.get('email')
+    return make_response(
+        {'email': value },
+        200
+    )
 
 
 @app.route('/sign_out', methods=['GET', 'POST'])
@@ -113,13 +103,13 @@ def sign_out():
         data = request.get_json()
         user = data['user']
         name = session.get('user')
-        if user == name:
-            session.pop('user')
+        for key in list(session.keys()):
+            session.pop(key)
         response = make_response(
             {'log out': 'successful'},
             200
         )
-        response.set_cookie('localId', None)
+        response.set_cookie('email', 'guest')
         return response
 
 
@@ -128,38 +118,14 @@ def sign_out():
 ###################################   Hotel Routes ###################
 ######################################################################
 
-@app.route('/', methods=['GET', 'POST'])
-@cross_origin()
-def home():
-    if request.method == 'GET':
-        localId = request.cookies.get('localId')
+class Hotels(Resource):
+    def get(self):
         hotels = Hotel.query.all()
-        response = make_response(
+        return make_response(
             [hotel.to_dict() for hotel in hotels],
             200
         )
-        if localId == None:
-            return response
-        return response
-        
-    elif request.method == 'POST':
-        data = request.get_json()
-        email = data['email']
-        password = data['password']
-        try:
-            user = auth.sign_in_with_email_and_password(email, password)
-            idToken = auth.get_account_info(user['idToken'])
-            localId = idToken['users'][0]['localId']
-            response = make_response(
-                [{'idToken': f'{idToken}'},
-                 {'email': f'{email}'}],
-                200
-            )
-            response.set_cookie(
-                'session', localId, httponly=True, secure=True, domain='127.0.0.1')
-            return response
-        except:
-            return redirect('/')
+api.add_resource( Hotels,'/hotels' )
 
 class HotelById(Resource):
     def get(self, id):

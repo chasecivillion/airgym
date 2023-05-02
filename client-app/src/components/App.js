@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Routes, Route } from 'react-router-dom';
 import { GlobalContext } from './GlobalContext';
 import Header from './Header';
@@ -9,8 +9,15 @@ import HotelListings from './HotelListings';
 import Pods from './Pods';
 
 function App() {
+  
+  const [currentUser, setCurrentUser] = useState("guest")
 
-  const [currentUser, setCurrentUser] = useState("")
+  useEffect(() => {
+    fetch('/cookies')
+      .then(r => r.json())
+      .then(obj => setCurrentUser(obj['email']))
+      
+  }, [])
 
   return (
     <div>
