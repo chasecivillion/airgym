@@ -1,6 +1,6 @@
 import React, { useContext, useState } from 'react';
 import { NavLink, useNavigate } from 'react-router-dom';
-import { GlobalContext } from './GlobalContext';
+import { GlobalContext } from './UserContext';
 
 function Signin() {
     const navigate = useNavigate()

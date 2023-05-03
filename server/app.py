@@ -85,32 +85,33 @@ def sign_in():
 @app.route('/cookies')
 def getCookie():
     value = request.cookies.get('email')
+    id = request.cookies.get('id')
+    if value == None:
+        return make_response(
+            {'email': 'guest'}
+        )
     return make_response(
-        {'email': value },
+        [{'email': value },
+         {'idToken': id }],
         200
     )
 
 
-@app.route('/sign_out', methods=['GET', 'POST'])
+@app.route('/sign_out', methods=['POST'])
 @cross_origin()
 def sign_out():
-    if request.method == "GET":
-        return make_response(
-            {'bye':'bye'},
-            200
-        )
-    if request.method == "POST":
-        data = request.get_json()
-        user = data['user']
-        name = session.get('user')
-        for key in list(session.keys()):
-            session.pop(key)
-        response = make_response(
-            {'log out': 'successful'},
-            200
-        )
-        response.set_cookie('email', 'guest')
-        return response
+    data = request.get_json()
+    user = data['user']
+    name = session.get('user')
+    for key in list(session.keys()):
+        session.pop(key)
+    response = make_response(
+        {'log out': 'successful'},
+        200
+    )
+    response.set_cookie('email', 'guest')
+    response.set_cookie('idToken', '')
+    return response
 
 
 ######################################################################
@@ -142,14 +143,14 @@ class HotelById(Resource):
 api.add_resource(HotelById, '/hotels/<int:id>')
 
 
-class UserById(Resource):
+class UserPods(Resource):
     def get(self, idToken):
         user = User.query.filter_by(idToken=idToken).first()
         return make_response(
-            user.to_dict(),
+            user.to_dict(only='pods',),
             200
         )
-api.add_resource(UserById, '/user/<string:idToken>')
+api.add_resource(UserPods, '/user/<string:idToken>')
 
 
 if __name__ == '__main__':

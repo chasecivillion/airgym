@@ -1,7 +1,7 @@
 import React from 'react'
 import { Link } from 'react-router-dom'
 import { useContext, useState } from 'react'
-import { GlobalContext } from './GlobalContext'
+import { GlobalContext } from './UserContext'
 import SigninModal from './SigninModal'
 
 function Header() {
@@ -40,6 +40,9 @@ function Header() {
                 </div>
                 <div>
                     <Link to='/'> Home </Link>
+                </div>
+                <div>
+                    <Link to='/mypods'> My Pods </Link>
                 </div>
                 <div>
                     <form onSubmit={handleLogOut}>
