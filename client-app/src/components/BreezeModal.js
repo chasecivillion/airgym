@@ -1,6 +1,9 @@
 import { useEffect } from "react";
+import { useNavigate } from "react-router-dom";
 
 function BreezeModal({createPod, listing, userId, open, onClose}) {
+
+    const navigate = useNavigate()
     if (!open) return null;
     
     const areaClose = (e) => {
@@ -18,17 +21,24 @@ function BreezeModal({createPod, listing, userId, open, onClose}) {
 
     const handleSubmit = (e) => {
         e.preventDefault()
-        console.log(userId)
-        if (userId === null){
-            console.log('unauthorized access')
-        }
+        // console.log(userId)
+        // if (userId === null){
+        //     console.log('unauthorized access')
+        // }
         fetch(`/pods/${userId}`, {
             method: "POST",
             headers: {"Content-Type": "application/json"},
             body: JSON.stringify(newPod)
         })
-        .then(r => r.json())
-        console.log('pod created')
+        .then(r => {
+            if (r.ok) {
+                r.json()
+                    .then(navigate('/'))
+            } else {
+                navigate('/')
+            }
+        })
+
     }
     return(
         <div onClick={areaClose} id='wrapper' className='fixed inset-0 bg-black bg-opacity-25 backdrop-blur-sm flex justify-center items-center'>
