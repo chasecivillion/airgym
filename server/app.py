@@ -99,21 +99,20 @@ def getCookie():
     )
 
 
-@app.route('/sign_out', methods=['POST'])
-@cross_origin()
-def sign_out():
-    data = request.get_json()
-    user = data['user']
-    name = session.get('user')
-    for key in list(session.keys()):
-        session.pop(key)
-    response = make_response(
-        {'log out': 'successful'},
-        200
-    )
-    response.set_cookie('email', 'guest')
-    response.set_cookie('idToken', '')
-    return response
+# @app.route('/sign_out')
+# @cross_origin()
+class LogOut(Resource):
+    def get(self):
+        for key in list(session.keys()):
+            session.pop(key)
+        response = make_response(
+            {'log out': 'successful'},
+            200
+        )
+        response.set_cookie('email', 'guest')
+        response.set_cookie('idToken', '')
+        return response
+api.add_resource(LogOut, '/sign_out')
 
 
 ######################################################################
@@ -154,12 +153,11 @@ class Pods(Resource):
     
     def post(self, idToken):
         user = User.query.filter_by(idToken=idToken).first()
-        userID = user['id']
         data = request.get_json()
         new_pod = Pod(
             name = data['name'],
             image = data['image'],
-            user_id = userID,
+            user_id = user.id,
             hotel_id = data['hotel_id']
         )
 
@@ -169,7 +167,22 @@ class Pods(Resource):
             new_pod.to_dict(),
             201
         )
-api.add_resource(Pods, '/pods')
+    
+    def delete(self, idToken):
+        pod = Pod.query.filter_by(id=idToken).first()
+        if not pod:
+            return make_response(
+                {'error': 'Pod not found'},
+                404
+            )
+        db.session.delete(pod)
+        db.session.commit()
+        return make_response(
+            {'delete': 'successful'},
+            200
+        )
+
+api.add_resource(Pods, '/pods/<string:idToken>')
 
 class UserPods(Resource):
     def get(self, idToken):
@@ -183,6 +196,8 @@ class UserPods(Resource):
             user.to_dict(only=('pods',)),
             200
         )
+
+        
 api.add_resource(UserPods, '/user/<string:idToken>')
 
 

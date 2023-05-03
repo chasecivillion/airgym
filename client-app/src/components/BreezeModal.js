@@ -18,10 +18,11 @@ function BreezeModal({createPod, listing, userId, open, onClose}) {
 
     const handleSubmit = (e) => {
         e.preventDefault()
-        if (userId === -1){
+        console.log(userId)
+        if (userId === null){
             console.log('unauthorized access')
         }
-        fetch("/pods", {
+        fetch(`/pods/${userId}`, {
             method: "POST",
             headers: {"Content-Type": "application/json"},
             body: JSON.stringify(newPod)

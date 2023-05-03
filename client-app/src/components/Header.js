@@ -2,25 +2,25 @@ import React from 'react'
 import { Link } from 'react-router-dom'
 import { useContext, useState } from 'react'
 import { UserContext } from './UserContext'
+import { IdContext } from './IdContext'
 import SigninModal from './SigninModal'
 
 function Header() {
 
     const { currentUser, setCurrentUser } = useContext(UserContext)
+    const { userId, setUserId } = useContext(IdContext)
     const [ showSignIn, setShowSignIn ] = useState(false)
 
     const handleClick = () => {
         setShowSignIn(true)
     }
-    const handleLogOut = (e) => {
-        e.preventDefault()
-        const user = {user: currentUser}
-        fetch("/sign_out", {
-            method: "POST",
-            headers: {"Content-Type": "application/json"},
-            body: JSON.stringify(user)
-        })
-            .then(setCurrentUser("guest"))
+    const handleLogOut = () => {
+        // e.preventDefault()
+        // const user = {user: currentUser}
+        fetch("/sign_out")
+            .then( response => response.json())
+            .then( setCurrentUser("guest"))
+            .then( setUserId(-1))
             return (
             <div>
                 <div>
@@ -45,9 +45,7 @@ function Header() {
                     <Link to='/mypods'> My Pods </Link>
                 </div>
                 <div>
-                    <form onSubmit={handleLogOut}>
-                        <button>Logout</button>
-                    </form>
+                    <button onClick={handleLogOut}>Logout</button>
                 </div>
             </div>
         )
