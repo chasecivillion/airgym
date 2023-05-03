@@ -23,6 +23,8 @@ function App() {
         setUserId(obj[1]['idToken'])
       })
   }, [])
+  console.log(currentUser)
+  console.log(userId)
 
   return (
     <div>
@@ -34,7 +36,7 @@ function App() {
               <Route path="/sign_up" element={<Signup />} />
               <Route path="/sign_in" element={<Signin />} />
               <Route path="/hotels" element={<HotelListings />} />
-              <Route path="/hotels/pods" element={<Pods />} />
+            <Route path="/hotels/pods" element={<Pods/>} />
               <Route path="/mypods" element={<MyPods />} />
             </Routes>
         </IdContext.Provider>

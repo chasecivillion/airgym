@@ -1,12 +1,12 @@
 import React from 'react'
 import { Link } from 'react-router-dom'
 import { useContext, useState } from 'react'
-import { GlobalContext } from './UserContext'
+import { UserContext } from './UserContext'
 import SigninModal from './SigninModal'
 
 function Header() {
 
-    const { currentUser, setCurrentUser } = useContext(GlobalContext)
+    const { currentUser, setCurrentUser } = useContext(UserContext)
     const [ showSignIn, setShowSignIn ] = useState(false)
 
     const handleClick = () => {

@@ -1,10 +1,12 @@
 import React, { useContext, useState } from 'react';
 import { NavLink, useNavigate } from 'react-router-dom';
-import { GlobalContext } from './UserContext';
+import { UserContext } from './UserContext';
+import { IdContext } from './IdContext';
 
 function Signin() {
     const navigate = useNavigate()
-    const {currentUser, setCurrentUser} = useContext(GlobalContext)
+    const {currentUser, setCurrentUser} = useContext(UserContext)
+    const {userId, setUserId} = useContext(IdContext)
 
     const [email, setEmail] = useState("")
     const [password, setPassword] = useState("")
@@ -28,6 +30,7 @@ function Signin() {
                             const idToken = result[0]['idToken']
                             const email = result[1]['email']
                             setCurrentUser(email)
+                            setUserId(idToken)
                             navigate("/", { state: { idToken } })
                         })
                 } else {

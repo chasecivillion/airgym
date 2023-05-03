@@ -88,7 +88,9 @@ def getCookie():
     id = request.cookies.get('id')
     if value == None:
         return make_response(
-            {'email': 'guest'}
+            [{'email': 'guest'},
+             {'idToken': -1 }],
+             200
         )
     return make_response(
         [{'email': value },
@@ -142,12 +144,41 @@ class HotelById(Resource):
         )
 api.add_resource(HotelById, '/hotels/<int:id>')
 
+class Pods(Resource):
+    def get(self):
+        pods = Pod.query.all()
+        return make_response(
+            [pod.to_dict() for pod in pods],
+            200
+        )
+    
+    def post(self):
+        data = request.get_json()
+        new_pod = Pod(
+            name = data['name'],
+            image = data['image'],
+            user_id = data['user_id'],
+            hotel_id = data['hotel_id']
+        )
+
+        db.session.add(new_pod)
+        db.session.commit()
+        return make_response(
+            new_pod.to_dict(),
+            201
+        )
+api.add_resource(Pods, '/pods')
 
 class UserPods(Resource):
     def get(self, idToken):
         user = User.query.filter_by(idToken=idToken).first()
+        if not user:
+            return make_response(
+                {'error': 'user not found'},
+                404
+            )
         return make_response(
-            user.to_dict(only='pods',),
+            user.to_dict(only=('pods',)),
             200
         )
 api.add_resource(UserPods, '/user/<string:idToken>')

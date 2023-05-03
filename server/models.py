@@ -8,7 +8,7 @@ class User(db.Model, SerializerMixin):
 
     __tablename__ = 'users'
 
-    serialize_rules = ('-created_at', '-updated_at')
+    serialize_rules = ('-pods','-hotels','-created_at', '-updated_at')
 
     id = db.Column(db.Integer, primary_key=True)
     email = db.Column(db.String, nullable=False)
@@ -43,7 +43,7 @@ class Pod(db.Model, SerializerMixin):
 
     __tablename__ = 'pods'
 
-    serialize_rules = ('-created_at', '-updated_at')
+    serialize_rules = ('-user','-hotel','-created_at', '-updated_at')
 
     id = db.Column(db.Integer, primary_key=True)
     name = db.Column(db.String)

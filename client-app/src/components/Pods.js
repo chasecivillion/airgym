@@ -1,4 +1,4 @@
-import React, { Fragment, useState } from 'react';
+import React, { Fragment, useState, useContext } from 'react';
 import { useLocation } from 'react-router-dom';
 import HotelCard from './HotelCard';
 import EconomyPod from './EconomyPod'
@@ -7,8 +7,11 @@ import FirstClassPod from './FirstClassPod';
 import BreezeModal from './BreezeModal';
 import CloudModal from './CloudModal';
 import VaporModal from './VaporModal';
+import { IdContext } from './IdContext';
 
-function Pods() {
+function Pods({ createPod }) {
+
+  const { userId, setUserId } = useContext(IdContext)
 
   const location = useLocation()
   const listing = location.state.listing
@@ -36,9 +39,6 @@ function Pods() {
                 <div >
                     <div onClick={chooseModal} style={{ cursor: 'pointer' }}>
                         <EconomyPod/>
-                        {/* <h1>Economy Pod</h1> */}
-                        {/* <img style={{ width: '100%' }} alt="pod" src="https://img.ltwebstatic.com/gspCenter/goodsImage/2022/11/17/2116088464_1034418/B6CC3AC9E4972F0F56D7072A7D8E99D7_thumbnail_400x.jpg" />
-                        The basic essentials necessary for everyday traveling (i.e. toiletries, workout clothes, water bottle) */}
                     </div>
                 </div>
                     <div onClick={chooseModal} style={{ cursor: 'pointer' }}>
@@ -48,9 +48,9 @@ function Pods() {
                         <FirstClassPod/>
                 </div>
             </section>
-                <BreezeModal open={showBreezeModal} onClose={()=> setShowBreezeModal(false)} />
-                <CloudModal open={showCloudModal} onClose={()=> setShowCloudModal(false)} />
-                <VaporModal open={showVaporModal} onClose={()=> setShowVaporModal(false)} />
+              <BreezeModal createPod={createPod} listing={listing} userId={userId} open={showBreezeModal} onClose={()=> setShowBreezeModal(false)} />
+              <CloudModal listing={listing} userId={userId} open={showCloudModal} onClose={()=> setShowCloudModal(false)} />
+              <VaporModal listing={listing} userId={userId} open={showVaporModal} onClose={()=> setShowVaporModal(false)} />
         </main>
     </Fragment>
   )
