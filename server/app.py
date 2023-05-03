@@ -85,7 +85,7 @@ def sign_in():
 @app.route('/cookies')
 def getCookie():
     value = request.cookies.get('email')
-    id = request.cookies.get('id')
+    id = request.cookies.get('idToken')
     if value == None:
         return make_response(
             [{'email': 'guest'},
@@ -152,12 +152,14 @@ class Pods(Resource):
             200
         )
     
-    def post(self):
+    def post(self, idToken):
+        user = User.query.filter_by(idToken=idToken).first()
+        userID = user['id']
         data = request.get_json()
         new_pod = Pod(
             name = data['name'],
             image = data['image'],
-            user_id = data['user_id'],
+            user_id = userID,
             hotel_id = data['hotel_id']
         )
 
@@ -174,7 +176,7 @@ class UserPods(Resource):
         user = User.query.filter_by(idToken=idToken).first()
         if not user:
             return make_response(
-                {'error': 'user not found'},
+                {'error': 'user does not have pods'},
                 404
             )
         return make_response(
