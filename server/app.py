@@ -197,7 +197,6 @@ class UserPods(Resource):
             200
         )
 
-        
 api.add_resource(UserPods, '/user/<string:idToken>')
 
 
