@@ -16,7 +16,7 @@ function MyPods() {
     console.log(userId)
 
     useEffect(() => {
-        fetch(`/user/${userId}`)
+        fetch(`/user/${userId}/pods`)
         .then(r => {
             if (r.status === 200) {
                 r.json()

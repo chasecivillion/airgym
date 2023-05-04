@@ -30,34 +30,32 @@ app.secret_key = secret_key
 ######################################################################
 ###################################  LOGIN ROUTES#####################
 ######################################################################
-@app.route('/sign_up', methods=['GET', 'POST'])
+@app.route('/sign_up', methods=['POST'])
 @cross_origin()
 def create_account():
-    if request.method == 'POST':
-        data = request.get_json()
-        email = data['email']
-        password = data['password']
-        user = auth.create_user_with_email_and_password(email, password)
-        token = auth.get_account_info(user['idToken'])
-        localId = token['users'][0]['localId']
-        # ipdb.set_trace()
-        new_user = User(
-            email = data['email'],
-            idToken = localId
-            )
-        if not new_user:
-            return make_response(
-                {'error': 'User not found'},
-                404
-            )
-        db.session.add(new_user)
-        db.session.commit()
-        response = {'User created?': 'success'}
-        return make_response(
-            response,
-            200,
+    data = request.get_json()
+    email = data['email']
+    password = data['password']
+    user = auth.create_user_with_email_and_password(email, password)
+    token = auth.get_account_info(user['idToken'])
+    localId = token['users'][0]['localId']
+    # ipdb.set_trace()
+    new_user = User(
+        email = data['email'],
+        idToken = localId
         )
-    
+    if not new_user:
+        return make_response(
+            {'error': 'User not found'},
+            404
+        )
+    db.session.add(new_user)
+    db.session.commit()
+    response = {'User created?': 'success'}
+    return make_response(
+        response,
+        200,
+    )
 
 @app.route('/sign_in', methods =['POST'])
 @cross_origin(methods=['POST'], supports_credentials=True)
@@ -81,8 +79,20 @@ def sign_in():
     response.set_cookie('email', email)
     return response
 
+class LogOut(Resource):
+    def get(self):
+        for key in list(session.keys()):
+            session.pop(key)
+        response = make_response(
+            {'log out': 'successful'},
+            200
+        )
+        response.set_cookie('email', 'guest')
+        response.set_cookie('idToken', '')
+        return response
+api.add_resource(LogOut, '/sign_out')
 
-@app.route('/cookies')
+@app.route('/cookiemonster')
 def getCookie():
     value = request.cookies.get('email')
     id = request.cookies.get('idToken')
@@ -98,26 +108,9 @@ def getCookie():
         200
     )
 
-
-# @app.route('/sign_out')
-# @cross_origin()
-class LogOut(Resource):
-    def get(self):
-        for key in list(session.keys()):
-            session.pop(key)
-        response = make_response(
-            {'log out': 'successful'},
-            200
-        )
-        response.set_cookie('email', 'guest')
-        response.set_cookie('idToken', '')
-        return response
-api.add_resource(LogOut, '/sign_out')
-
-
 ######################################################################
 ######################################################################
-###################################   Hotel Routes ###################
+###################################   HOTEL ROUTES ###################
 ######################################################################
 
 class Hotels(Resource):
@@ -143,14 +136,42 @@ class HotelById(Resource):
         )
 api.add_resource(HotelById, '/hotels/<int:id>')
 
+
+######################################################################
+######################################################################
+###################################   POD ROUTES #####################
+######################################################################
+
 class Pods(Resource):
-    # def get(self):
-    #     pods = Pod.query.all()
-    #     return make_response(
-    #         [pod.to_dict() for pod in pods],
-    #         200
-    #     )
+    def get(self):
+        pods = Pod.query.all()
+        return make_response(
+            [pod.to_dict() for pod in pods],
+            200
+        )
     
+
+api.add_resource(Pods, '/pods')
+
+
+######################################################################
+######################################################################
+###################################  USER ROUTES #####################
+######################################################################
+
+class UserPods(Resource):
+    def get(self, idToken):
+        user = User.query.filter_by(idToken=idToken).first()
+        if not user:
+            return make_response(
+                {'error': 'user does not have pods'},
+                404
+            )
+        return make_response(
+            user.to_dict(only=('pods',)),
+            200
+        )
+
     def post(self, idToken):
         user = User.query.filter_by(idToken=idToken).first()
         data = request.get_json()
@@ -197,23 +218,8 @@ class Pods(Resource):
             pod.to_dict(),
             200
         )
-
-api.add_resource(Pods, '/pods/<string:idToken>')
-
-class UserPods(Resource):
-    def get(self, idToken):
-        user = User.query.filter_by(idToken=idToken).first()
-        if not user:
-            return make_response(
-                {'error': 'user does not have pods'},
-                404
-            )
-        return make_response(
-            user.to_dict(only=('pods',)),
-            200
-        )
-
-api.add_resource(UserPods, '/user/<string:idToken>')
+    
+api.add_resource(UserPods, '/user/<string:idToken>/pods')
 
 
 if __name__ == '__main__':

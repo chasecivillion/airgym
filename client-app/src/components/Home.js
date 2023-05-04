@@ -42,7 +42,7 @@ function Home() {
         }
         else {
             e.preventDefault()
-            fetch(`http://127.0.0.1:5555/hotels/${hotelID}`)
+            fetch(`/hotels/${hotelID}`)
                 .then(r => r.json())
                 .then(listings => navigate("/hotels", { state: { listings } }))
         }

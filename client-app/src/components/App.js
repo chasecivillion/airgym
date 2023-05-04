@@ -16,7 +16,7 @@ function App() {
   const [ userId, setUserId ] = useState(0)
 
   useEffect(() => {
-    fetch('/cookies')
+    fetch('/cookiemonster')
       .then(r => r.json())
       .then(obj => {
         setCurrentUser(obj[0]['email'])

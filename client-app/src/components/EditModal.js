@@ -43,7 +43,7 @@ function EditModal({ name, image, id, open, onClose, updatedPods }) {
     const handleSubmit = (e) => {
         e.preventDefault()
         console.log(podChoice)
-        fetch(`/pods/${id}`, {
+        fetch(`/user/${id}/pods`, {
             method: "PATCH",
             headers: { "Content-type": "application/json" },
             body: JSON.stringify({

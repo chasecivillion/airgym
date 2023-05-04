@@ -6,7 +6,7 @@ import SigninModal from './SigninModal';
 
 function HotelListings() {
 
-    const { userId, setUserId } = useContext(IdContext)
+    // const { userId, setUserId } = useContext(IdContext)
 
     const location = useLocation()
     const listings = location.state.listings

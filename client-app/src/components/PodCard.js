@@ -6,7 +6,7 @@ function PodCard({ pod, remainingPods, updatedPods }) {
   const [ showEditModal, setShowEditModal ] = useState(false);
 
   const deletePod = () => {
-    fetch(`/pods/${pod.id}`, { method: "DELETE" })
+    fetch(`/user/${pod.id}/pods`, { method: "DELETE" })
       .then(remainingPods(pod.id))
   }
 

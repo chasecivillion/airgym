@@ -7,7 +7,7 @@ function BreezeModal({createPod, listing, userId, open, onClose}) {
     if (!open) return null;
     
     const areaClose = (e) => {
-        if (e.target.id === "wrapper") {
+        if (e.target.id === "breezeModal") {
             onClose()
         }
     }
@@ -25,23 +25,22 @@ function BreezeModal({createPod, listing, userId, open, onClose}) {
         // if (userId === null){
         //     console.log('unauthorized access')
         // }
-        fetch(`/pods/${userId}`, {
+        fetch(`/user/${userId}/pods`, {
             method: "POST",
             headers: {"Content-Type": "application/json"},
             body: JSON.stringify(newPod)
         })
-        .then(r => {
-            if (r.ok) {
-                r.json()
-                    .then(navigate('/'))
-            } else {
-                navigate('/')
-            }
-        })
-
+            .then(r => {
+                if (r.ok) {
+                    r.json()
+                    navigate('/')
+                } else if (r.status !== 201) {
+                   navigate('/sign_up')
+                }
+            })
     }
     return(
-        <div onClick={areaClose} id='wrapper' className='fixed inset-0 bg-black bg-opacity-25 backdrop-blur-sm flex justify-center items-center'>
+        <div onClick={areaClose} id='breezeModal' className='fixed inset-0 bg-black bg-opacity-25 backdrop-blur-sm flex justify-center items-center'>
             <div className='w-[600px] flex flex-col'>
                 <div>
                     <button onClick={onClose} className='absolute top-[60px] start-[890px] end-[350px] text-white text-xl'>X</button>

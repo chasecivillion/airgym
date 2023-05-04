@@ -71,6 +71,8 @@ class Pod(db.Model, SerializerMixin):
 
     @validates('name')
     def name_handler(self, key, name):
-        if name.lower() is not 'breeze pod' or 'cloud pod' or 'vapor pod':
-            raise ValueError('Please include a proper pod name.')
-        return name
+        pods = ['breeze pod', 'cloud pod', 'vapor pod']
+        for pod in pods:
+            if pod == name.lower():
+                return name
+        raise ValueError('Please include a proper pod name.')
