@@ -21,6 +21,16 @@ class User(db.Model, SerializerMixin):
                            cascade="all, delete-orphan")
     hotels = association_proxy('pods', 'hotel')
 
+    @validates('email')
+    def email_address(self, key, email):
+        if '@' and '.com' in email:
+            return email
+        elif not email:
+            raise ValueError('Email must be provided')
+        else:
+            raise ValueError('Email does not include "@" or ".com"')
+
+
 
 class Hotel(db.Model, SerializerMixin):
 
@@ -38,6 +48,7 @@ class Hotel(db.Model, SerializerMixin):
     pods = db.relationship('Pod', back_populates='hotel',
                            cascade="all, delete-orphan")
     users = association_proxy('pods', 'user')
+
 
 class Pod(db.Model, SerializerMixin):
 
@@ -57,3 +68,9 @@ class Pod(db.Model, SerializerMixin):
 
     user = db.relationship('User', back_populates='pods')
     hotel = db.relationship('Hotel', back_populates='pods')
+
+    @validates('name')
+    def name_handler(self, key, name):
+        if name.lower() is not 'breeze pod' or 'cloud pod' or 'vapor pod':
+            raise ValueError('Please include a proper pod name.')
+        return name
