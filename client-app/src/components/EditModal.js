@@ -1,6 +1,6 @@
 import { useState } from "react";
 
-function EditModal({ name, image, id, open, onClose }) {
+function EditModal({ name, image, id, open, onClose, updatedPods }) {
 
     const [ podImage, setPodImage ] = useState(image)
     const [ podChoice, setPodChoice ] = useState(name)
@@ -10,13 +10,6 @@ function EditModal({ name, image, id, open, onClose }) {
     const cloud = 'https://cdn.dribbble.com/users/5935617/screenshots/16201104/media/f0e83b00016b2e1d78bcbb42e29b0c89.jpg?compress=1&resize=400x300&vertical=top'
 
     const vapor = 'https://repository-images.githubusercontent.com/49910095/8c5be280-5bbd-11ea-83c7-7fb50300e4df'
-
-
-
-
-
-
-
 
     if (!open) return null;
 
@@ -49,15 +42,30 @@ function EditModal({ name, image, id, open, onClose }) {
     // }
     const handleSubmit = (e) => {
         e.preventDefault()
+        console.log(podChoice)
+        fetch(`/pods/${id}`, {
+            method: "PATCH",
+            headers: { "Content-type": "application/json" },
+            body: JSON.stringify({
+                name: podChoice,
+                image: podImage
+            })
+        })
+            .then(r => r.json())
+            .then(updatedPod => updatedPods(updatedPod))
+            console.log('updated!')
     }
 
     const selectPod = (e) => {
         if (e.target.id === "breeze") {
             setPodImage(breeze)
+            setPodChoice('Breeze Pod')
         } else if (e.target.id === "cloud") {
             setPodImage(cloud)
+            setPodChoice('Cloud Pod')
         } else if (e.target.id === "vapor") {
             setPodImage(vapor)
+            setPodChoice('Vapor Pod')
         }
     }
 
@@ -69,14 +77,14 @@ function EditModal({ name, image, id, open, onClose }) {
                     <div className='bg-white p-2 rounded'>Edit Modal
                         <img src={podImage} alt="breeze" />
                         <div>
-                            <button onClick={selectPod} id="breeze" className="px-4 py-1 text-sm text-purple-600 font-semibold rounded-full border border-purple-200 hover:text-white hover:bg-purple-600 hover:border-transparent focus:outline-none focus:ring-2 focus:ring-purple-600 focus:ring-offset-2"> Breeze Pod </button>
-                            <button onClick={selectPod} id="cloud" className="px-4 py-1 text-sm text-purple-600 font-semibold rounded-full border border-purple-200 hover:text-white hover:bg-purple-600 hover:border-transparent focus:outline-none focus:ring-2 focus:ring-purple-600 focus:ring-offset-2"> Cloud Pod </button>
-                            <button onClick={selectPod} id="vapor" className="px-4 py-1 text-sm text-purple-600 font-semibold rounded-full border border-purple-200 hover:text-white hover:bg-purple-600 hover:border-transparent focus:outline-none focus:ring-2 focus:ring-purple-600 focus:ring-offset-2"> Vapor Pod </button>
+                            <button onClick={selectPod} id="breeze" className="px-4 py-1 text-sm text-purple-600 font-semibold rounded-full border border-purple-200 hover:text-white hover:bg-purple-600 hover:border-transparent focus:outline-none focus:ring-2 focus:bg-purple-600  focus:text-white"> Breeze Pod </button>
+                            <button onClick={selectPod} id="cloud" className="px-4 py-1 text-sm text-purple-600 font-semibold rounded-full border border-purple-200 hover:text-white hover:bg-purple-600 hover:border-transparent focus:outline-none focus:ring-2 focus:bg-purple-600  focus:text-white"> Cloud Pod </button>
+                            <button onClick={selectPod} id="vapor" className="px-4 py-1 text-sm text-purple-600 font-semibold rounded-full border border-purple-200 hover:text-white hover:bg-purple-600 hover:border-transparent focus:outline-none focus:ring-2 focus:bg-purple-600  focus:text-white"> Vapor Pod </button>
                             <h3 className="p-8 text-center">  
                             </h3>
                         </div>
                         <form className="text-center" onSubmit={handleSubmit}>
-                            <button className="px-4 py-1 text-sm text-purple-600 font-semibold rounded-full border border-purple-200 hover:text-white hover:bg-purple-600 hover:border-transparent focus:outline-none focus:ring-2 focus:ring-purple-600 focus:ring-offset-2"> Edit Pod </button>
+                            <button className="px-4 py-1 text-sm text-purple-600 font-semibold rounded-full border border-purple-200 hover:text-white hover:bg-purple-600 hover:border-transparent focus:outline-none focus:ring-2 focus:ring-purple-600 focus:ring-offset-2"> Confirm Change </button>
                         </form>
                     </div>
                 </div>

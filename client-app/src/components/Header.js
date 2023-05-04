@@ -21,16 +21,17 @@ function Header() {
             .then( response => response.json())
             .then( setCurrentUser("guest"))
             .then( setUserId(-1))
-            return (
-            <div>
-                <div>
-                    <Link to='/sign_in'> Log In </Link>
-                </div>
-                <div>
-                    <Link to='/'> Home </Link>
-                </div>
-            </div>
-            )
+            window.location.reload()
+            // return (
+            // <div>
+            //     <div>
+            //         <Link to='/sign_in'> Log In </Link>
+            //     </div>
+            //     <div>
+            //         <Link to='/'> Home </Link>
+            //     </div>
+            // </div>
+            // )
     }
     if (currentUser !== "guest") {
         return (

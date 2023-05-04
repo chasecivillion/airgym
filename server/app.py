@@ -144,12 +144,12 @@ class HotelById(Resource):
 api.add_resource(HotelById, '/hotels/<int:id>')
 
 class Pods(Resource):
-    def get(self):
-        pods = Pod.query.all()
-        return make_response(
-            [pod.to_dict() for pod in pods],
-            200
-        )
+    # def get(self):
+    #     pods = Pod.query.all()
+    #     return make_response(
+    #         [pod.to_dict() for pod in pods],
+    #         200
+    #     )
     
     def post(self, idToken):
         user = User.query.filter_by(idToken=idToken).first()
@@ -179,6 +179,22 @@ class Pods(Resource):
         db.session.commit()
         return make_response(
             {'delete': 'successful'},
+            200
+        )
+    def patch(self, idToken):
+        data = request.get_json()
+        pod = Pod.query.filter_by(id=idToken).first()
+        if not pod:
+            return make_response(
+                {'error': 'Pod not found'},
+                404
+            )
+        for key in data.keys():
+            setattr(pod, key, data[key])
+        db.session.add(pod)
+        db.session.commit()
+        return make_response(
+            pod.to_dict(),
             200
         )
 

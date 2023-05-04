@@ -2,11 +2,16 @@ import React, {useState, useEffect, useContext} from 'react'
 import { IdContext } from './IdContext'
 import PodCards from './PodCards'
 import PodCard from './PodCard'
+import { useNavigate } from 'react-router-dom'
 
 function MyPods() {
 
+    const navigate = useNavigate()
+
     const [ pods, setPods ] = useState([])
     const { userId, setUserId } = useContext(IdContext)
+
+    
 
     console.log(userId)
 
@@ -22,11 +27,17 @@ function MyPods() {
                     })
             } else {
                 console.log('User not found')
+                navigate('/')
             }
         })
     },[])
 
-
+    const updatedPods = (updatedPod) => {
+        const updatedUserPods = pods.map(pod => {
+            return (pod.id !== updatedPod.id ? pod : updatedPod)
+        })
+        setPods(updatedUserPods)
+    }
 
     const remainingPods = (deletingPod) => {
         const newPods = pods.filter(podObj => podObj.id !== deletingPod)
@@ -34,7 +45,7 @@ function MyPods() {
     }
 
   return (
-    <div><PodCards pods={pods} remainingPods={remainingPods}/></div>
+    <div><PodCards pods={pods} updatedPods={updatedPods} remainingPods={remainingPods}/></div>
   )
 }
 

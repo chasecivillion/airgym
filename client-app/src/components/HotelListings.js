@@ -1,8 +1,12 @@
-import React from 'react'
-import { useLocation } from 'react-router-dom';
+import React, { useContext } from 'react'
+import { useLocation, useNavigate } from 'react-router-dom';
+import { IdContext } from './IdContext';
 import HotelCards from './HotelCards';
+import SigninModal from './SigninModal';
 
 function HotelListings() {
+
+    const { userId, setUserId } = useContext(IdContext)
 
     const location = useLocation()
     const listings = location.state.listings
