@@ -1,7 +1,6 @@
 import React, {useState, useEffect, useContext} from 'react'
 import { IdContext } from './IdContext'
 import PodCards from './PodCards'
-import PodCard from './PodCard'
 import { useNavigate } from 'react-router-dom'
 
 function MyPods() {
@@ -9,21 +8,21 @@ function MyPods() {
     const navigate = useNavigate()
 
     const [ pods, setPods ] = useState([])
+    const [ hotels, setHotels ] = useState([])
     const { userId, setUserId } = useContext(IdContext)
 
-    
-
-    console.log(userId)
 
     useEffect(() => {
         fetch(`/user/${userId}/pods`)
         .then(r => {
             if (r.status === 200) {
                 r.json()
-                    .then(pods => {
-                        const podsObj = pods
-                        const listPods = podsObj.pods
+                    .then(hotelsAndPods => {
+                        const hotelPodObj = hotelsAndPods
+                        const listPods = hotelPodObj.pods
+                        const listHotels = hotelPodObj.hotels
                         setPods(listPods)
+                        setHotels(listHotels)
                     })
             } else {
                 console.log('User not found')
@@ -45,7 +44,7 @@ function MyPods() {
     }
 
   return (
-    <div><PodCards pods={pods} updatedPods={updatedPods} remainingPods={remainingPods}/></div>
+    <div><PodCards hotels={hotels} pods={pods} updatedPods={updatedPods} remainingPods={remainingPods}/></div>
   )
 }
 

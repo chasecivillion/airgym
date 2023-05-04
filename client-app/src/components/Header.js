@@ -48,6 +48,9 @@ function Header() {
                 <div>
                     <button onClick={handleLogOut}>Logout</button>
                 </div>
+                <div>
+                    <Link to='/turtlebay'>𓆉</Link>
+                </div>
             </div>
         )
     }

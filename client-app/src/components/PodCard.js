@@ -1,7 +1,8 @@
 import React, {useState} from 'react'
 import EditModal from './EditModal'
+import HotelPodCard from './HotelPodCard';
 
-function PodCard({ pod, remainingPods, updatedPods }) {
+function PodCard({  pod, remainingPods, updatedPods }) {
 
   const [ showEditModal, setShowEditModal ] = useState(false);
 

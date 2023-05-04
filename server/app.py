@@ -5,6 +5,7 @@ from flask_cors import CORS, cross_origin
 from random import sample
 from models import User, Hotel, Pod
 from config import app, db, api, secret_key, auth
+import requests
 import ipdb
 
 CORS(app)
@@ -30,13 +31,39 @@ app.secret_key = secret_key
 ######################################################################
 ###################################  LOGIN ROUTES#####################
 ######################################################################
+
+# @app.before_request
+# def check_log_in():
+#     logged_in = session.get('user')
+#     signing_up = 'sign_up' in request.path and 'POST' in request.method
+#     logging_in = 'sign_in' in request.path and 'POST' in request.method
+#     viewing_hotels = request.path.startswith('/hotels') and 'GET' in request.method
+#     viewing_pods = 'pods' in request.path and 'GET' in request.method
+#     viewing_cookies = request.path.startswith('/cookiemonster') and 'GET' in request.method
+#     if viewing_hotels and viewing_cookies and not logged_in:
+#         return make_response(
+#             {'success':'success'},
+#             200
+#         )
+#     elif not logged_in and not signing_up and not logging_in and not viewing_pods:
+#         return make_response(
+#             {'error': 'please log in'},
+#             401
+#         )
+
 @app.route('/sign_up', methods=['POST'])
 @cross_origin()
 def create_account():
     data = request.get_json()
     email = data['email']
     password = data['password']
-    user = auth.create_user_with_email_and_password(email, password)
+    try:
+        user = auth.create_user_with_email_and_password(email, password)
+    except requests.exceptions.HTTPError as e:
+        return make_response(
+            {'error':f'{e} Invalid email or password'},
+            400
+        )
     token = auth.get_account_info(user['idToken'])
     localId = token['users'][0]['localId']
     # ipdb.set_trace()
@@ -69,7 +96,10 @@ def sign_in():
         localId = idToken['users'][0]['localId']
         session['user'] = email
     except:
-        return redirect('/')
+        return make_response(
+            {'error': 'login credentials are invalid'},
+            400
+        )
     response = make_response(
         [{'idToken': f'{localId}'},
             {'email': f'{idToken["users"][0]["email"]}'}],
@@ -92,7 +122,7 @@ class LogOut(Resource):
         return response
 api.add_resource(LogOut, '/sign_out')
 
-@app.route('/cookiemonster')
+@app.route('/cookiemonster', methods=['GET'])
 def getCookie():
     value = request.cookies.get('email')
     id = request.cookies.get('idToken')
@@ -131,7 +161,7 @@ class HotelById(Resource):
         curated_hotels.reverse()
         
         return make_response(
-            [hotel.to_dict() for hotel in curated_hotels],
+            [hotel.to_dict(rules=('users',)) for hotel in curated_hotels],
             200
         )
 api.add_resource(HotelById, '/hotels/<int:id>')
@@ -168,7 +198,7 @@ class UserPods(Resource):
                 404
             )
         return make_response(
-            user.to_dict(only=('pods',)),
+            user.to_dict(only=('pods','hotels')),
             200
         )
 
@@ -181,6 +211,7 @@ class UserPods(Resource):
             user_id = user.id,
             hotel_id = data['hotel_id']
         )
+        
 
         db.session.add(new_pod)
         db.session.commit()

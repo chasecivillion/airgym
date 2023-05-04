@@ -9,6 +9,7 @@ import Signin from './Signin';
 import HotelListings from './HotelListings';
 import Pods from './Pods';
 import MyPods from './MyPods';
+import SecretRoute from './SecretRoute';
 
 function App() {
   
@@ -38,6 +39,7 @@ function App() {
               <Route path="/hotels" element={<HotelListings />} />
               <Route path="/hotels/pods" element={<Pods/>} />
               <Route path="/mypods" element={<MyPods />} />
+              <Route path="/turtlebay" element={<SecretRoute/>}/>
             </Routes>
         </IdContext.Provider>
       </UserContext.Provider>

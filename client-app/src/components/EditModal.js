@@ -1,6 +1,6 @@
 import { useState } from "react";
 
-function EditModal({ name, image, id, open, onClose, updatedPods }) {
+function EditModal({ id, name, image, key, open, onClose, updatedPods }) {
 
     const [ podImage, setPodImage ] = useState(image)
     const [ podChoice, setPodChoice ] = useState(name)

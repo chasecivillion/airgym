@@ -74,7 +74,7 @@ function Signup() {
                         value={values.confirmPassword}
                         onChange={handleChange}
                         onBlur={handleBlur}
-                        type="confirmPassword"
+                        type="password"
                         name="confirmPassword"
                         placeholder="confirm password" />
                 
