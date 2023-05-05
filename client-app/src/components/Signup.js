@@ -2,30 +2,22 @@ import React, { useState } from 'react'
 import { NavLink } from 'react-router-dom';
 import { useFormik } from 'formik'
 import Signin from './Signin';
+import { basicSchema } from '../FormSchema/BasicSchema';
+import '../index.css';
 
 function Signup() {
+    
+    const onSubmit = (values, actions) => {
 
-    const {values, handleChange, handleBlur} = useFormik({
-        initialValues: {
-            email: "",
-            password: "",
-            confirmPassword: ""
-        }
-    })
-    const [email, setEmail] = useState("")
-    const [password, setPassword] = useState("")
-
-    const new_user = {
-        email: email,
-        password: password,
-    }
-
-    const handleSubmit = (e) => {
-        e.preventDefault()
         fetch("/sign_up", {
             method: "POST",
             headers: { "Content-Type": "application/json" },
-            body: JSON.stringify(new_user)
+            body: JSON.stringify(
+                {
+                    email: values.email,
+                    password: values.password,
+                }
+            )
         })
             .then(r => {
                 if (r.ok) {
@@ -42,8 +34,26 @@ function Signup() {
                     console.log('failure')
                 }
             })
-        e.target.reset()
+        actions.resetForm()
     }
+    const {values, errors, touched, handleChange, handleBlur, handleSubmit} = useFormik({
+        initialValues: {
+            email: "",
+            password: "",
+            confirmPassword: ""
+        },
+        validationSchema: basicSchema,
+        onSubmit,
+    });
+
+    const [email, setEmail] = useState("")
+    const [password, setPassword] = useState("")
+
+    const new_user = {
+        email: email,
+        password: password,
+    }
+
 
     return (
         <div>
@@ -57,26 +67,39 @@ function Signup() {
                     <input 
                         value={values.email} 
                         onChange={handleChange}
-                        onBlur={handleBlur} 
+                        onBlur={handleBlur}
+                        className={errors.email && touched.email ? 'border-2 border-red-300' : 
+                            '' }
                         type="text" 
                         name="email" 
                         placeholder="email" />
+
+                        {errors.email && touched.email && <p className='text-red-400'>{errors.email}</p>}
+
                     <label htmlFor="password">Password</label>
                     <input
                         value={values.password}
                         onChange={handleChange}
-                        onBlur={handleBlur} 
+                        onBlur={handleBlur}
+                        className={errors.password && touched.password ? 'border-2 border-red-300' :
+                            ''} 
                         type="password" 
                         name="password" 
                         placeholder="password" />
+
+                        {errors.password && touched.password && <p className='text-red-400'>{errors.password}</p>}
+
                     <label htmlFor="confirmPassword">Confirm Password</label>
                     <input
                         value={values.confirmPassword}
                         onChange={handleChange}
                         onBlur={handleBlur}
+                        className={errors.confirmPassword && touched.confirmPassword ? 'border-2 border-red-300' :
+                            ''} 
                         type="password"
                         name="confirmPassword"
                         placeholder="confirm password" />
+                        {errors.confirmPassword && touched.confirmPassword && <p className='text-red-400'>{errors.confirmPassword}</p>}
                 
                     <button type="submit">Create Account</button>
                 </form>

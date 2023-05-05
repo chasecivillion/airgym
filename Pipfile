@@ -10,12 +10,18 @@ flask-migrate = "*"
 sqlalchemy-serializer = "*"
 flask-restful = "*"
 flask-cors = "*"
-pyrebase4 = "*"
 selenium = "*"
 flask-session = "*"
 firebase-admin = "*"
+requests-toolbelt = "*"
+pycryptodome = "*"
+importlib-resources = "*"
+ipdb = "*"
+requests = "*"
+pyrebase4 = "*"
+urllib3 = "*"
 
 [dev-packages]
 
 [requires]
-python_version = "3.8"
+python_version = "3.8.13"
