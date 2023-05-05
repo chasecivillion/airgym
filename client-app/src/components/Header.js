@@ -1,18 +1,29 @@
 import React from 'react'
-import { Link } from 'react-router-dom'
+import { Link, NavLink } from 'react-router-dom'
 import { useContext, useState } from 'react'
+import { HomeIcon, UserCircleIcon, UserIcon } from '@heroicons/react/20/solid'
+
+
+
 import { UserContext } from './UserContext'
 import { IdContext } from './IdContext'
 import SigninModal from './SigninModal'
+import SignupModal from './SignupModal'
 
 function Header() {
 
     const { currentUser, setCurrentUser } = useContext(UserContext)
     const { userId, setUserId } = useContext(IdContext)
     const [ showSignIn, setShowSignIn ] = useState(false)
+    const [ showSignUp, setShowSignUp ] = useState(false)
 
     const handleClick = () => {
         setShowSignIn(true)
+    }
+
+    const signInSignUp = () => {
+        setShowSignUp(!showSignUp)
+        setShowSignIn(!showSignIn)
     }
     const handleLogOut = () => {
         // e.preventDefault()
@@ -55,15 +66,27 @@ function Header() {
         )
     }
     return (
-        <div >
-            <div style={{cursor:'pointer'}} onClick={ handleClick }>
-                Login
+        <header className="sticky top-0 z-50 bg-white shadow-md p-5 grid grid-cols-3">
+            <div className="flex items-center">
+                <img 
+                    src="https://www.pngall.com/wp-content/uploads/5/Wind-PNG-Free-Image.png"
+                    className="max-w-[90px]"
+                    alt="logo"/>
             </div>
-            <div>
-                <Link to='/'> Home </Link>
+            <div className="flex items-center">
+                <Link to='/'> <HomeIcon className="h-8 bg-red-400 text-white rounded-full p-2" /> </Link>
             </div>
-            <SigninModal appear={showSignIn} disappear={() => setShowSignIn(false)} />
-        </div>
+            <div className="flex items-center justify-end text-gray-500">
+                <div style={{ cursor: 'pointer' }} onClick={handleClick}  className="flex items-center space-x-2 border-2 p-2 rounded-full">
+                    <div>
+                        Login
+                    </div>
+                    <UserCircleIcon className="h-6" />
+                </div>
+            </div>
+            <SigninModal appear={showSignIn} disappear={() => setShowSignIn(false)} toggle={signInSignUp} />
+            <SignupModal signUpAppear={showSignUp} signUpDisappear={() => setShowSignUp(false)} toggle={signInSignUp} />
+        </header>
     )
 }
 

@@ -5,11 +5,11 @@ import { IdContext } from './IdContext';
 import Header from './Header';
 import Home from './Home';
 import Signup from './Signup';
-import Signin from './Signin';
 import HotelListings from './HotelListings';
 import Pods from './Pods';
 import MyPods from './MyPods';
 import SecretRoute from './SecretRoute';
+import SigninModal from './SigninModal';
 
 function App() {
   
@@ -35,7 +35,7 @@ function App() {
             <Routes>
               <Route path="/" element={<Home />} />
               <Route path="/sign_up" element={<Signup />} />
-              <Route path="/sign_in" element={<Signin />} />
+              <Route path="/sign_in" element={<SigninModal />} />
               <Route path="/hotels" element={<HotelListings />} />
               <Route path="/hotels/pods" element={<Pods/>} />
               <Route path="/mypods" element={<MyPods />} />
