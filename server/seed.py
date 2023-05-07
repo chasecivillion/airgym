@@ -24,6 +24,7 @@ with app.app_context():
         images=data[i]['image'],
         latitude=data[i]['geoCode']['latitude'],
         longitude=data[i]['geoCode']['longitude'],
+        distance=data[i]['distance']['value'],
         city=data[i]['iataCode'],
         )
         db.session.add(h1)
@@ -31,7 +32,7 @@ with app.app_context():
 
    print("Creating Pods...")
 
-   p1 = Pod(name='basic', 
+   p1 = Pod(name='Vapor Pod', 
             image="https://cdn.shopify.com/s/files/1/0247/7326/3445/products/BuildYour121_1080x.jpg?v=1669045190", 
             user_id=u1.id, hotel_id=h1.id)
    db.session.add(p1)

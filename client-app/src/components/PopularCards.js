@@ -1,9 +1,9 @@
 import React from 'react'
 import PopularCard from './PopularCard'
 
-function PopularCards({allHotels}) {
+function PopularCards({trendingHotels}) {
 
-    const everyHotel = allHotels
+    const everyHotel = trendingHotels
 
     const popularList = []
     const hotelGenerator = (number) => {
@@ -15,13 +15,16 @@ function PopularCards({allHotels}) {
     }
     hotelGenerator(8)
     
-
-    const featuredList = popularList.map((popularHotel) => {
-        return (<PopularCard {...popularHotel}/>)
+    
+    const featuredList = popularList.map((popularHotel, index) => {
+        const key = `${index}-1`
+        return (<PopularCard key={key} {...popularHotel}/>)
     })
     
     return (
-        <div>{featuredList}</div>
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
+            {featuredList}
+        </div>
     )
 }
 

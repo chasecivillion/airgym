@@ -166,6 +166,17 @@ class HotelById(Resource):
         )
 api.add_resource(HotelById, '/hotels/<int:id>')
 
+class TrendingHotels(Resource):
+    def get(self):
+        hotels = Hotel.query.all()
+        trending_hotels = sample(hotels, 8)
+
+        return make_response(
+            [hotel.to_dict() for hotel in trending_hotels],
+            200
+        )
+    
+api.add_resource(TrendingHotels, '/hotels/trending')
 
 ######################################################################
 ######################################################################

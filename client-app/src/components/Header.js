@@ -2,9 +2,6 @@ import React from 'react'
 import { Link, NavLink } from 'react-router-dom'
 import { useContext, useState } from 'react'
 import { HomeIcon, UserCircleIcon, UserIcon } from '@heroicons/react/20/solid'
-
-
-
 import { UserContext } from './UserContext'
 import { IdContext } from './IdContext'
 import SigninModal from './SigninModal'
@@ -66,11 +63,11 @@ function Header() {
         )
     }
     return (
-        <header className="sticky top-0 z-50 bg-white shadow-md p-5 grid grid-cols-3">
+        <header className="sticky top-0 z-50 bg-white shadow-md p-3 grid grid-cols-3">
             <div className="flex items-center">
                 <img 
                     src="https://www.pngall.com/wp-content/uploads/5/Wind-PNG-Free-Image.png"
-                    className="max-w-[90px]"
+                    className="max-w-[50px]"
                     alt="logo"/>
             </div>
             <div className="flex items-center">

@@ -43,6 +43,7 @@ class Hotel(db.Model, SerializerMixin):
     images = db.Column(db.String)
     latitude = db.Column(db.Integer)
     longitude = db.Column(db.Integer)
+    distance = db.Column(db.Integer)
     city = db.Column(db.String)
 
     pods = db.relationship('Pod', back_populates='hotel',
