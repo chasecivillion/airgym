@@ -12,12 +12,13 @@ flask-restful = "*"
 flask-cors = "*"
 selenium = "*"
 flask-session = "*"
-firebase-admin = "*"
-requests-toolbelt = "*"
-pycryptodome = "*"
-importlib-resources = "*"
 ipdb = "*"
+chardet = "*"
+simplejson = "*"
 urllib3 = "*"
+pyopenssl = "*"
+pycryptodome = "*"
+pyrebase4 = "*"
 
 [dev-packages]
 

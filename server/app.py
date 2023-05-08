@@ -1,19 +1,15 @@
 from flask import session, request, make_response, redirect, jsonify, Response
-# from flask_session import Session
 from flask_restful import Resource
 from flask_cors import CORS, cross_origin
 from random import sample
 from models import User, Hotel, Pod
-from config import app, db, api, secret_key, auth
+from config import app, db, api, auth
+from secret import secret_key
 import requests
 import ipdb
 
 CORS(app)
 app.secret_key = secret_key
-# app.config["SESSION_PERMANENT"] = False
-# app.config["SESSION_TYPE"] = "filesystem"
-# Session(app)
-
 # new_user = auth.create_user_with_email_and_password(email, password)
 
 # user = auth.sign_in_with_email_and_password(email, password)

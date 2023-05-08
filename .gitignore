@@ -1,5 +1,5 @@
 # Created by https://www.gitignore.io/api/node
-/server/config.py
+/server/secret.py
 .DS_Store
 
 ### Node ###

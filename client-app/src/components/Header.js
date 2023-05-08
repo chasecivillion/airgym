@@ -30,38 +30,45 @@ function Header() {
             .then( setCurrentUser("guest"))
             .then( setUserId(-1))
             window.location.reload()
-            // return (
-            // <div>
-            //     <div>
-            //         <Link to='/sign_in'> Log In </Link>
-            //     </div>
-            //     <div>
-            //         <Link to='/'> Home </Link>
-            //     </div>
-            // </div>
-            // )
     }
     if (currentUser !== "guest") {
         return (
-            <div>
-                <div>
-                    Welcome back, {currentUser}!
-                </div>
-                <div>
-                    <Link to='/'> Home </Link>
-                </div>
-                <div>
-                    <Link to='/mypods'> My Pods </Link>
-                </div>
-                <div>
-                    <button onClick={handleLogOut}>Logout</button>
-                </div>
-                <div>
-                    <Link to='/turtlebay'>𓆉</Link>
-                </div>
+            <header className="sticky top-0 z-50 bg-white shadow-md p-3">
+                <div className="grid grid-cols-3">
+                    <div className="flex items-center">
+                        <img 
+                            src="https://www.pngall.com/wp-content/uploads/5/Wind-PNG-Free-Image.png"
+                            className="max-w-[50px]"
+                            alt="logo"/>
+                            <h1 className='font-sans font-bold p-3'>
+                            AirGym
+                            </h1>
+                    </div>
+                    <div className="flex items-center justify-end">
+                        <Link to='/'> <HomeIcon className="h-8 bg-red-400 text-white rounded-full p-2" /> </Link>
+                        <div>
+                            <Link to='/mypods'> My Pods </Link>
+                        </div>
+                    </div>
+                    <div className="flex items-center justify-end text-gray-500">
+                        <div className="flex relative pl-24">
+                        Welcome back, {currentUser}!
+                        </div>
+                        <div style={{ cursor: 'pointer' }} onClick={handleLogOut}  className="flex items-center space-x-2 border-2 p-2 rounded-full">
+                            <div>
+                                Logout
+                            </div>
+                            <UserCircleIcon className="flex h-6" />
+                        </div>
+                    </div>
             </div>
+            {/* <div className="flex justify-end">
+                Welcome back, {currentUser}!
+            </div> */}
+        </header>
         )
     }
+    
     return (
         <header className="sticky top-0 z-50 bg-white shadow-md p-3 grid grid-cols-3">
             <div className="flex items-center">

@@ -31,7 +31,21 @@ function Home() {
                 <SearchBar hotels={hotels}/>
             </div>
             <main className="max-w-7xl mx-auto px-8 sm:px-16">
-                <section className="pt-6">
+                <section>
+                    <h1 className="pt-16 pb-4 flex justify-center font-bold font-sans text-3xl">
+                        We pack the essentials so you don't have to.
+                    </h1>
+                    <h3 className="flex justify-center font-bold font-sans text-gray-600">
+                        AirGym is a lending program that provides new and gently-used activewear.
+                    </h3>
+                    <h3 className="pt-2 flex justify-center font-bold font-sans text-gray-600">
+                        We partner with hotels to make the lending experience completely seamless and lightweight
+                    </h3>
+                    <h3 className="pb-3 flex justify-center font-bold font-sans text-gray-600">
+                        by having your gear delivered to your room upon check-in and picked up once you check-out.
+                    </h3>
+                </section>
+                <section className="pt-8">
                     <TrendingFeature trendingHotels={hotels}/>
                 </section>
             </main>
