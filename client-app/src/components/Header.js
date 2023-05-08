@@ -1,7 +1,7 @@
 import React from 'react'
 import { Link, NavLink } from 'react-router-dom'
 import { useContext, useState } from 'react'
-import { HomeIcon, UserCircleIcon, UserIcon } from '@heroicons/react/20/solid'
+import { HomeIcon, UserCircleIcon } from '@heroicons/react/20/solid'
 import { UserContext } from './UserContext'
 import { IdContext } from './IdContext'
 import SigninModal from './SigninModal'

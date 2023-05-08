@@ -1,9 +1,9 @@
 import React, { Fragment, useState, useContext } from 'react';
 import { useLocation } from 'react-router-dom';
 import HotelCard from './HotelCard';
-import EconomyPod from './EconomyPod'
-import BusinessPod from './BusinessPod';
-import FirstClassPod from './FirstClassPod';
+import BreezePod from './BreezePod'
+import CloudPod from './CloudPod';
+import VaporPod from './VaporPod';
 import BreezeModal from './BreezeModal';
 import CloudModal from './CloudModal';
 import VaporModal from './VaporModal';
@@ -25,7 +25,7 @@ function Pods({ createPod }) {
         setShowBreezeModal(true)
     } else if (e.target.id === "cloud") {
         setShowCloudModal(true)
-    } else {
+    } else if (e.target.id === "vapor") {
         setShowVaporModal(true)
     };
   };
@@ -35,17 +35,17 @@ function Pods({ createPod }) {
     <Fragment>
         <main>
             <HotelCard listing={listing}/>
-            <section style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(300px, 1fr))", gridGap: 100 }}>
+              <section className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 py-2 px-2">
                 <div >
                     <div onClick={chooseModal} style={{ cursor: 'pointer' }}>
-                        <EconomyPod/>
+                        <BreezePod/>
                     </div>
                 </div>
                     <div onClick={chooseModal} style={{ cursor: 'pointer' }}>
-                        <BusinessPod/>
+                        <CloudPod/>
                     </div>
                 <div onClick={chooseModal} style={{ cursor: 'pointer' }}>
-                        <FirstClassPod/>
+                        <VaporPod/>
                 </div>
             </section>
               <BreezeModal createPod={createPod} listing={listing} userId={userId} open={showBreezeModal} onClose={()=> setShowBreezeModal(false)} />

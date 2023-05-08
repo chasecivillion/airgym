@@ -9,11 +9,15 @@ function PopularCards({trendingHotels}) {
     const hotelGenerator = (number) => {
         for (let i = 0; i < number; i++) {
             const luckyHotel = Math.floor(Math.random() * everyHotel.length)
-            popularList.push(everyHotel[luckyHotel])
+            if (!popularList.includes(luckyHotel)){
+                popularList.push(everyHotel[luckyHotel])
+            }
         }
         return( popularList )
     }
     hotelGenerator(8)
+
+
     
     
     const featuredList = popularList.map((popularHotel, index) => {

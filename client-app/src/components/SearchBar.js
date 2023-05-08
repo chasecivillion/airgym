@@ -14,6 +14,8 @@ function SearchBar({hotels}) {
 
     const [text, setText] = useState([])
     const [suggestions, setSuggestions] = useState([])
+    const [focusedSuggestion, setFocusedSuggestion] = useState("")
+    const [hotel, setHotel] = useState("")
     const [hotelID, setHotelID] = useState(0)
     const [focusedIndex, setFocusedIndex] = useState(-1)
     const [showCalendar, setShowCalendar] = useState(false)
@@ -28,7 +30,7 @@ function SearchBar({hotels}) {
         if (!resultContainer.current) return;
         
         resultContainer.current.scrollIntoView({
-            block: "center",
+            block: "end",
         });
     }, [focusedIndex]);
     
@@ -53,25 +55,27 @@ function SearchBar({hotels}) {
     const onSuggestHandler = (text, hotelID) => {
         setText(text)
         setHotelID(hotelID)
+        setHotel(text)
         setSuggestions([])
     }
     
     const handleSelect = (ranges) => {
         setStartDate(ranges.selection.startDate)
         setEndDate(ranges.selection.endDate)
-        
+        setHotel(text)
     }
     
     const resetText = () => {
         setText([])
         setHotelID(0)
+        setShowCalendar(false)
     }
     
     const handleSubmit = (e) => {
         if (hotelID === 0) {
             e.preventDefault()
         }
-        else if (hotelID > 0 && formattedStartDate !== formattedEndDate) {
+        else if (hotel === text && hotelID > 0 && formattedStartDate !== formattedEndDate) {
             e.preventDefault()
             fetch(`/hotels/${hotelID}`)
             .then(r => r.json())
@@ -94,12 +98,15 @@ function SearchBar({hotels}) {
                 setShowCalendar(true)
             }
             setShowCalendar(false)
+            console.log('Missing Date range, hotelID or hotel name/text')
         }
     }
     const handleKeyDown = (e) => {
         let nextIndexCount = 0
 
-        if (e.key === "ArrowDown"){
+        if (e.key === "\\") {
+            e.preventDefault()
+        } else if (e.key === "ArrowDown"){
             nextIndexCount = (focusedIndex + 1) % suggestions.length
         } else if (e.key === "ArrowUp") {
             nextIndexCount = (focusedIndex + suggestions.length - 1) % suggestions.length
@@ -108,23 +115,40 @@ function SearchBar({hotels}) {
             setText([])
         } else if (e.key === "Enter" && hotelID === 0) {
             const selectedSuggestion = suggestions[focusedIndex]
-            setText(selectedSuggestion.name)
-            setHotelID(selectedSuggestion.id)
-            setSuggestions([]);
-        }
+            console.log(selectedSuggestion)
+            if (selectedSuggestion) {
+                setFocusedSuggestion(selectedSuggestion.name)
+                setText(selectedSuggestion.name)
+                setHotelID(selectedSuggestion.id)
+                setSuggestions([]);
+            } else {
+                e.preventDefault()
+            }
+        } else if (e.key === "Enter" && hotelID !== 0) {
+            if (focusedSuggestion !== text) {
+                e.preventDefault()
+            }
+            setHotel(text)
+        
+        } else if (e.key.length >= 1 && e.target.selectionStart === 0 && e.target.selectionEnd === e.target.value.length || e.key === "Backspace" && text.length === 1) {
+            setShowCalendar(false)
+            setHotelID(0)
+        } else if (e.key === "Backspace" && hotelID !==0 && text.length > 1) {
+            setShowCalendar(true)
+        } 
         setFocusedIndex(nextIndexCount)
     }
     return (
-    <div>
+    <div className="relative h-full w-full flex justify-center items-center">
         <img
             src="https://wallpaper.dog/large/10708530.jpg"
-            className="absolute inset-0 object-cover w-full h-full"
+            className="inset-0 object-cover w-full h-full"
             onClick={resetText}
         />
-        <form className="absolute h-1/3 right-1/3 w-1/3 top-1/4" onSubmit={handleSubmit}>
-              <div tabIndex={1} onKeyDown={handleKeyDown} className="relative h-10 flex items-center border-2 ">
+        <form className="absolute top-1/3 left-0 right-0 bottom-0 flex flex-col justify-center items-center" onSubmit={handleSubmit}>
+            <div tabIndex={1} onKeyDown={handleKeyDown} className="bg-white relative w-5/12 h-10 pl-3 pr-3 flex items-center border-2 ">
                 <input
-                    className=" outline-none p-4 h-full w-full "
+                    className="underline-none outline-none p-4 h-full w-full "
                     type="text"
                     placeholder='Enter your destination...'
                     onChange={e => onChangeHandler(e.target.value)}
@@ -138,40 +162,43 @@ function SearchBar({hotels}) {
                   <MagnifyingGlassIcon className="h-full p-2 bg-white cursor-pointer" />
             </div>
                 {hotelID > 0 && (
-                    <div className="flex flex-col col-span-3 mx-auto">
+                    <div className="absolute flex justify-center items-center">
                         <DateRangePicker
                         ranges={[selectionRange]}
                         minDate={new Date()}
                         rangeColors={["#FD5861"]}
                         onChange={handleSelect}
+                        className="absolute"
                         />
                     </div>
                     )
                 }
-            {suggestions && suggestions.map((suggestion, i) => {
-                if (showCalendar === false) {
-                    return(
-                        <div 
-                            key={i}
-                            ref={i === focusedIndex ? resultContainer : null}
-                            className=" w-full bg-white"
-                            style={{
-                                backgroundColor:
-                                    i === focusedIndex ? "coral" : "",
-                            }}
-                            onClick={() => onSuggestHandler(suggestion.name, suggestion.id)}>
-                                <div 
-                                className=" cursor-pointer py-2 px-3 hover:bg-slate-100">
-                                    {suggestion.name}
-                                </div>
-                        </div>
-                    )
-                }
-            })}
+            <div className="h-full w-1/3 flex flex-col">
+                {suggestions && suggestions.map((suggestion, i) => {
+                    if (showCalendar === false) {
+                        return(
+                            <div 
+                                key={i}
+                                ref={i === focusedIndex ? resultContainer : null}
+                                className=" h-8 w-full bg-white"
+                                style={{
+                                    backgroundColor:
+                                        i === focusedIndex ? "coral" : "",
+                                }}
+                                onClick={() => onSuggestHandler(suggestion.name, suggestion.id)}>
+                                    <div 
+                                    className=" cursor-pointer py-2 px-3 hover:bg-slate-100">
+                                        {suggestion.name}
+                                    </div>
+                            </div>
+                        )
+                    }
+                })}
+            </div>
             {/* <input className="" type="date" placeholder='Enter your check-in date...' />
             <input className="" type="date" placeholder='Enter your check-out date...' /> */}
             <button
-                className="absolute left-1/3 text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center">
+                className="absolute left-2/3 top-0 flex flex-col justify-center items-center text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center">
                 Search Hotels
             </button>
         </form>
