@@ -1,5 +1,5 @@
 import React, { Fragment, useState, useContext } from 'react';
-import { useLocation } from 'react-router-dom';
+import { useLocation, useNavigate } from 'react-router-dom';
 import HotelCard from './HotelCard';
 import BreezePod from './BreezePod'
 import CloudPod from './CloudPod';
@@ -12,10 +12,10 @@ import { IdContext } from './IdContext';
 function Pods({ createPod }) {
 
   const { userId, setUserId } = useContext(IdContext)
-
+  
+  const navigate = useNavigate()
   const location = useLocation()
-  const listing = location.state.listing
-
+  const listing = location.state?.listing
   const [showBreezeModal, setShowBreezeModal] = useState(false);
   const [showCloudModal, setShowCloudModal] = useState(false);
   const [showVaporModal, setShowVaporModal] = useState(false);
@@ -30,9 +30,14 @@ function Pods({ createPod }) {
     };
   };
 
+  const redirect = !listing
+
 
   return (
     <Fragment>
+        {redirect && <div>error</div>}
+        {!redirect && (
+
         <main>
             <HotelCard listing={listing}/>
               <section className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 py-2 px-2">
@@ -48,10 +53,34 @@ function Pods({ createPod }) {
                         <VaporPod/>
                 </div>
             </section>
-              <BreezeModal createPod={createPod} listing={listing} userId={userId} open={showBreezeModal} onClose={()=> setShowBreezeModal(false)} />
-              <CloudModal listing={listing} userId={userId} open={showCloudModal} onClose={()=> setShowCloudModal(false)} />
-              <VaporModal listing={listing} userId={userId} open={showVaporModal} onClose={()=> setShowVaporModal(false)} />
+              {showBreezeModal ? (
+        <BreezeModal
+          createPod={createPod}
+          listing={listing}
+          userId={userId}
+          open={showBreezeModal}
+          onClose={() => setShowBreezeModal(false)}
+        />
+      ) : null}
+      {showCloudModal ? (
+        <CloudModal
+          listing={listing}
+          userId={userId}
+          open={showCloudModal}
+          onClose={() => setShowCloudModal(false)}
+        />
+      ) : null}
+      {showVaporModal ? (
+        <VaporModal
+          listing={listing}
+          userId={userId}
+          open={showVaporModal}
+          onClose={() => setShowVaporModal(false)}
+        />
+      ) : null}
         </main>
+
+            )}
     </Fragment>
   )
 }

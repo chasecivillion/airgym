@@ -17,8 +17,6 @@ requests-toolbelt = "*"
 pycryptodome = "*"
 importlib-resources = "*"
 ipdb = "*"
-requests = "*"
-pyrebase4 = "*"
 urllib3 = "*"
 
 [dev-packages]

@@ -2,15 +2,15 @@ import React from 'react'
 import TravelerCard from './TravelerCard'
 
 
-function Travelers({travelers}) {
+function Travelers({travelers, name}) {
 
 
-  const travelerList = travelers.map((traveler) => {
-    return (<TravelerCard key={traveler.id} email={traveler.email}/>)
+  const travelerList = travelers.map((traveler, i) => {
+    return (<TravelerCard key={i} name={name} email={traveler.email}/>)
   })
 
   return (
-    <div>{travelerList}</div>
+    <div className="flex items-center w-screen h-screen grid bg-gradient-to-r from-pink-400 to-purple-600">{travelerList}</div>
   )
 }
 

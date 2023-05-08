@@ -4,6 +4,7 @@ import { useFormik } from 'formik'
 import Signin from './Signin';
 import { basicSchema } from '../FormSchema/BasicSchema';
 import '../index.css';
+import SigninModal from './SigninModal';
 
 function Signup() {
     
@@ -25,8 +26,8 @@ function Signup() {
                     .then(console.log('success'))
                     return (
                         <main>
-                            <NavLink to='/sign_in'>
-                                <Signin />
+                            <NavLink to='/'>
+                                <SigninModal />
                             </NavLink>
                         </main>
                     )

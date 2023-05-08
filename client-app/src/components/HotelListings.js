@@ -1,15 +1,20 @@
 import React, { useContext } from 'react'
 import { useLocation, useNavigate } from 'react-router-dom';
-import { IdContext } from './IdContext';
 import HotelCards from './HotelCards';
 import SigninModal from './SigninModal';
 
 function HotelListings() {
 
-    // const { userId, setUserId } = useContext(IdContext)
-
+    const navigate = useNavigate()
     const location = useLocation()
-    const { formattedHotels, range } = location.state
+
+
+    const formattedHotels = location.state?.formattedHotels
+    const range = location.state?.range
+
+    if (!formattedHotels || !range) {
+        return <div> No hotels found</div>
+    }
 
     const hotels = formattedHotels.map((listing) => {
         return(<HotelCards range={range} key= {listing.id} listing={listing}/>)

@@ -32,24 +32,18 @@ app.secret_key = secret_key
 ###################################  LOGIN ROUTES#####################
 ######################################################################
 
-# @app.before_request
-# def check_log_in():
-#     logged_in = session.get('user')
-#     signing_up = 'sign_up' in request.path and 'POST' in request.method
-#     logging_in = 'sign_in' in request.path and 'POST' in request.method
-#     viewing_hotels = request.path.startswith('/hotels') and 'GET' in request.method
-#     viewing_pods = 'pods' in request.path and 'GET' in request.method
-#     viewing_cookies = request.path.startswith('/cookiemonster') and 'GET' in request.method
-#     if viewing_hotels and viewing_cookies and not logged_in:
-#         return make_response(
-#             {'success':'success'},
-#             200
-#         )
-#     elif not logged_in and not signing_up and not logging_in and not viewing_pods:
-#         return make_response(
-#             {'error': 'please log in'},
-#             401
-#         )
+@app.before_request
+def check_log_in():
+    logged_in = session.get('user_id')
+    signing_up = 'sign_up' in request.path and 'POST' in request.method
+    logging_in = 'sign_in' in request.path and 'POST' in request.method
+    viewing_pods = 'pods' in request.path and 'GET' in request.method
+
+    if not logged_in and not signing_up and not logging_in and viewing_pods:
+        return make_response(
+            {'Unauthorized Access': 'Requires log in'},
+            401
+        )
 
 @app.route('/sign_up', methods=['POST'])
 @cross_origin()
@@ -95,6 +89,7 @@ def sign_in():
         idToken = auth.get_account_info(user['idToken'])
         localId = idToken['users'][0]['localId']
         session['user'] = email
+        session['user_id'] = idToken
     except:
         return make_response(
             {'error': 'login credentials are invalid'},

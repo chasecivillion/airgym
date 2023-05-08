@@ -8,8 +8,10 @@ function TravelBook() {
 
   const location = useLocation()
 
-  const name = location.state.name
-  const id = location.state.id
+  const name = location.state?.name
+  const id = location.state?.id
+
+  console.log(name)
 
   const [travelers, setTravelers] = useState([])
 
@@ -21,7 +23,7 @@ function TravelBook() {
 
   return (
     <div>
-      <Travelers travelers={travelers}/>
+      <Travelers name={name} travelers={travelers}/>
 
 
 

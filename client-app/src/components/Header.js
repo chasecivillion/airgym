@@ -70,7 +70,7 @@ function Header() {
                     className="max-w-[50px]"
                     alt="logo"/>
             </div>
-            <div className="flex items-center">
+            <div className="flex items-center justify-end">
                 <Link to='/'> <HomeIcon className="h-8 bg-red-400 text-white rounded-full p-2" /> </Link>
             </div>
             <div className="flex items-center justify-end text-gray-500">
@@ -78,7 +78,7 @@ function Header() {
                     <div>
                         Login
                     </div>
-                    <UserCircleIcon className="h-6" />
+                    <UserCircleIcon className="flex h-6" />
                 </div>
             </div>
             <SigninModal appear={showSignIn} disappear={() => setShowSignIn(false)} toggle={signInSignUp} />

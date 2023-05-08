@@ -11,6 +11,7 @@ import MyPods from './MyPods';
 import SecretRoute from './SecretRoute';
 import SigninModal from './SigninModal';
 import TravelBook from './TravelBook';
+import SignupModal from './SignupModal';
 
 function App() {
   
@@ -35,7 +36,7 @@ function App() {
           <Header />
             <Routes>
               <Route path="/" element={<Home />} />
-              <Route path="/sign_up" element={<Signup />} />
+              <Route path="/sign_up" element={<SignupModal />} />
               <Route path="/sign_in" element={<SigninModal />} />
               <Route path="/hotels" element={<HotelListings />} />
               <Route path="/hotels/pods" element={<Pods/>} />
