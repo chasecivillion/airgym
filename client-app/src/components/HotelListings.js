@@ -23,7 +23,7 @@ function HotelListings() {
     return (
       <div >
         <section className="pt-14 px-6">
-            <p className="text-s">Availability for {range}</p>
+            <p className="text">Availability for {range}</p>
         </section>
           {hotels}
       </div>

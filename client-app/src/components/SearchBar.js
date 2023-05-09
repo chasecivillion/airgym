@@ -145,8 +145,8 @@ function SearchBar({hotels}) {
             className="inset-0 opacity-60 object-cover w-full h-full "
             onClick={resetText}
         />
-            <div className="absolute z-1 h-full left-72 top-1/4 w-full justify-center">
-                <h1 className='flex absolute justify-center w-1/2 top-0 text-center text-3xl font-bold text-white opacity-90'>
+            <div className="absolute h-full left-72 top-36 w-full justify-center">
+                <h1 className='flex relative justify-center w-1/2 top-0 text-center sm:text-sm md:text-2xl lg:text-3xl font-bold text-white opacity-90'>
                     Activewear for whenever, wherever
                 </h1>
             </div>

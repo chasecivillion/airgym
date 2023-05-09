@@ -5,7 +5,7 @@ function BusinessPod() {
     <div className="relative p-8">
       <div className="group relative cursor-pointer items-center justify-center overflow-hidden transition-shadow hover:shadow-xl hover:shadow-black/30">
         <div className="h-full w-full">
-          <img className="h-full w-full object-cover transition-transform duration-500 group-hover:rotate-4 group-hover:scale-125" src="https://i.pinimg.com/736x/eb/59/58/eb5958c247fc81cc727de71511105640.jpg" alt="cloud pod" />
+          <img className="h-full w-full object-cover transition-transform duration-500 group-hover:rotate-4 group-hover:scale-125" src="https://images.pexels.com/photos/2088205/pexels-photo-2088205.jpeg?cs=srgb&dl=pexels-eberhard-grossgasteiger-2088205.jpg&fm=jpg" alt="cloud pod" />
         </div>
         <div className="absolute inset-0 bg-gradient-to-b from-transparent via-transparent to-black group-hover:from-black/70 group-hover:via-black/60 group-hover:to-black/70"></div>
         <div className="absolute inset-0 flex translate-y-[52%] flex-col items-center justify-center px-9 text-center transition-all duration-500 group-hover:translate-y-0">
