@@ -40,7 +40,10 @@ function Pods({ createPod }) {
 
         <main>
             <HotelCard listing={listing}/>
-              <section className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 py-2 px-2">
+            <h1 className="text-4xl tracking-widest font-bold h-24 flex justify-center items-center border-b">
+                Discover Your Pod
+            </h1>
+              <section className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-3 pr-12 pl-12 py-2 px-2">
                 <div >
                     <div onClick={chooseModal} style={{ cursor: 'pointer' }}>
                         <BreezePod/>

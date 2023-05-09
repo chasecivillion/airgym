@@ -6,7 +6,7 @@ function HotelCard({listing}) {
     <div>
       <div className="flex py-7 px-2 border-b cursor-pointer hover:opacity-80 hover:shadow-lg transition duration-200 ease-out">
         <div className="relative h-24 w-40 md:h-52 md:w-80 flex-shrink-0">
-          <img className="h-full w-full" src={listing.images} alt={listing.name}/>
+          <img className="h-full w-full rounded-2xl" src={listing.images} alt={listing.name}/>
         </div>
         <div className="flex flex-col flex-grow pl-5">
           <div className="flex justify-between">

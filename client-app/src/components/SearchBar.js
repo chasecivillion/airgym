@@ -153,7 +153,7 @@ function SearchBar({hotels}) {
         <form className="absolute top-1/3 left-0 right-0 bottom-0 flex flex-col justify-center items-center" onSubmit={handleSubmit}>
             <div tabIndex={1} onKeyDown={handleKeyDown} className="absolute bg-white top-0 w-5/12 h-10 pl-3 pr-3 mt-1.5 flex items-center border-2 ">
                 <input
-                    className="underline-none outline-none p-4 h-full w-full "
+                    className="invalid:border-transparent outline-none p-4 h-full w-full "
                     type="text"
                     placeholder='Enter your destination...'
                     onChange={e => onChangeHandler(e.target.value)}
@@ -185,10 +185,10 @@ function SearchBar({hotels}) {
                             <div 
                                 key={i}
                                 ref={i === focusedIndex ? resultContainer : null}
-                                className=" top-1/3 h-8 w-full bg-white"
+                                className=" top-1/3 h-10 w-full bg-white"
                                 style={{
                                     backgroundColor:
-                                        i === focusedIndex ? "coral" : "",
+                                        i === focusedIndex ? "rgb(186 230 253)" : "",
                                 }}
                                 onClick={() => onSuggestHandler(suggestion.name, suggestion.id)}>
                                     <div 

@@ -22,8 +22,8 @@ function HotelListings() {
 
     return (
       <div >
-        <section className="pt-14 px-6">
-            <p className="text">Availability for {range}</p>
+        <section className="pt-14 px-6 pb-8 border-b">
+            <p className="text-sm">Availability for {range}</p>
         </section>
           {hotels}
       </div>

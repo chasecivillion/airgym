@@ -11,7 +11,7 @@ function BreezePod() {
         <div className="absolute inset-0 flex translate-y-[45%] flex-col items-center justify-center px-9 text-center transition-all duration-500 group-hover:translate-y-0">
           <h1 className="font-sans text-3xl font-bold text-white">Breeze Pod</h1>
           <p className="mb-3 text-lg italic text-white opacity-0 transition-opacity duration-300 group-hover:opacity-100">DESCRIPTION HERE</p>
-          <button id="breeze" className="rounded-full bg-neutral-900 py-2 px-3.5 font-sans text-sm capitalize text-white shadow shadow-black/60">See More</button>
+          <button id="breeze" className="hover:text-black hover:bg-white rounded-full bg-neutral-900 py-2 px-3.5 font-sans text-sm capitalize text-white shadow shadow-black/60">See More</button>
         </div>
       </div>
     </div>

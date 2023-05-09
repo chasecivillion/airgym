@@ -3,6 +3,7 @@ import { Routes, Route } from 'react-router-dom';
 import { UserContext } from './UserContext';
 import { IdContext } from './IdContext';
 import Header from './Header';
+import Footer from './Footer';
 import Home from './Home';
 import Signup from './Signup';
 import HotelListings from './HotelListings';
@@ -44,6 +45,7 @@ function App() {
               {/* <Route path="/turtlebay" element={<SecretRoute/>}/> */}
               <Route path="/travelbook" element={<TravelBook/>} />
             </Routes>
+          <Footer/>
         </IdContext.Provider>
       </UserContext.Provider>
     </div>

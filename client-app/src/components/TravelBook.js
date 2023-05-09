@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react'
 import { useLocation } from 'react-router-dom'
 import { UserCircleIcon } from '@heroicons/react/20/solid'
 import Travelers from './Travelers'
+import HotelCard from './HotelCard'
 
 
 function TravelBook() {
