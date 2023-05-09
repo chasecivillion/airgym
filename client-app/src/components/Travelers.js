@@ -4,8 +4,12 @@ import TravelerCard from './TravelerCard'
 
 function Travelers({travelers, name}) {
 
+  const uniqueTravelerList = [...new Set(travelers.map(traveler => traveler.email))].map(email => {
+    return travelers.find(traveler => traveler.email === email)
+  })
+  
+  const travelerList = uniqueTravelerList.map((traveler, i) => {
 
-  const travelerList = travelers.map((traveler, i) => {
     return (<TravelerCard key={i} name={name} email={traveler.email}/>)
   })
 

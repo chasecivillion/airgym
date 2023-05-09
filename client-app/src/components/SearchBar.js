@@ -145,11 +145,13 @@ function SearchBar({hotels}) {
             className="inset-0 opacity-60 object-cover w-full h-full "
             onClick={resetText}
         />
-        <form className="absolute top-0 left-0 right-0 bottom-0 flex flex-col justify-center items-center" onSubmit={handleSubmit}>
-            <h1 className='flex absolute w-2/3 top-0 text-center text-3xl font-bold pt-28 pb-16 text-white opacity-90'>
-                Activewear when you need it, wherever you need it
-            </h1>
-            <div tabIndex={1} onKeyDown={handleKeyDown} className="absolute bg-white top-1/3 w-5/12 h-10 pl-3 pr-3 flex items-center border-2 ">
+            <div className="absolute z-1 h-full left-72 top-1/4 w-full justify-center">
+                <h1 className='flex absolute justify-center w-1/2 top-0 text-center text-3xl font-bold text-white opacity-90'>
+                    Activewear for whenever, wherever
+                </h1>
+            </div>
+        <form className="absolute top-1/3 left-0 right-0 bottom-0 flex flex-col justify-center items-center" onSubmit={handleSubmit}>
+            <div tabIndex={1} onKeyDown={handleKeyDown} className="absolute bg-white top-0 w-5/12 h-10 pl-3 pr-3 mt-1.5 flex items-center border-2 ">
                 <input
                     className="underline-none outline-none p-4 h-full w-full "
                     type="text"
@@ -165,7 +167,7 @@ function SearchBar({hotels}) {
                   <MagnifyingGlassIcon className="h-full p-2 bg-white cursor-pointer" />
             </div>
                 {hotelID > 0 && (
-                    <div className="absolute flex bottom-1/3 justify-center items-center">
+                    <div className="absolute flex justify-center items-center">
                         <DateRangePicker
                         ranges={[selectionRange]}
                         minDate={new Date()}
@@ -176,7 +178,7 @@ function SearchBar({hotels}) {
                     </div>
                     )
                 }
-            <div className=" h-full w-1/3 flex flex-col">
+            <div className=" h-4/5 w-1/3 flex flex-col">
                 {suggestions && suggestions.map((suggestion, i) => {
                     if (showCalendar === false) {
                         return(
