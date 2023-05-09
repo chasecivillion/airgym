@@ -71,14 +71,12 @@ function Header() {
     
     return (
         <header className="sticky top-0 z-50 bg-white shadow-md p-3 grid grid-cols-3">
-            <div className="flex items-center">
-                <img 
-                    src="https://www.pngall.com/wp-content/uploads/5/Wind-PNG-Free-Image.png"
-                    className="max-w-[50px]"
-                    alt="logo"/>
+            <div className="">
             </div>
-            <div className="flex items-center justify-end">
-                <Link to='/'> <HomeIcon className="h-8 bg-red-400 text-white rounded-full p-2" /> </Link>
+            <div className="flex justify-center items-center text-4xl font-bold">
+                <Link to='/'> 
+                    ≡Airgym.
+                </Link>
             </div>
             <div className="flex items-center justify-end text-gray-500">
                 <div style={{ cursor: 'pointer' }} onClick={handleClick}  className="flex items-center space-x-2 border-2 p-2 rounded-full">

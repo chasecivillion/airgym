@@ -145,15 +145,35 @@ function SearchBar({hotels}) {
             className="inset-0 opacity-60 object-cover w-full h-full "
             onClick={resetText}
         />
-            <div className="absolute h-full left-72 top-36 w-full justify-center">
-                <h1 className='flex relative justify-center w-1/2 top-0 text-center sm:text-sm md:text-2xl lg:text-3xl font-bold text-white opacity-90'>
+            <div className="absolute cursor-default h-1/12 top-[10%] w-full justify-center">
+                <h1 className='flex relative justify-center top-0 text-center md:text-2xl lg:text-8xl font-bold text-white opacity-90'>
+                    ≡
+                </h1>
+                <h1 className='flex relative cursor-default justify-center top-0 text-center md:text-2xl lg:text-3xl font-bold text-white opacity-90'>
                     Activewear for whenever, wherever
                 </h1>
             </div>
         <form className="absolute top-1/3 left-0 right-0 bottom-0 flex flex-col justify-center items-center" onSubmit={handleSubmit}>
-            <div tabIndex={1} onKeyDown={handleKeyDown} className="absolute bg-white top-0 w-5/12 h-10 pl-3 pr-3 mt-1.5 flex items-center border-2 ">
+                <div className="absolute flex grid grid-cols-3 w-full justify-end top-1.5">
+                    <div>
+    
+                    </div>
+                    <div>
+
+                    </div>
+                    <div className="flex w-4/5 grid grid-cols-3 lg:grid-cols-3">
+                        <div>
+
+                        </div>
+                        <button
+                            className="flex text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-2 py-2.5 justify-center">
+                            Search
+                        </button>
+                    </div>
+                </div>
+            <div tabIndex={1} onKeyDown={handleKeyDown} className="absolute bg-white top-0 w-1/2 h-10 pl-3 pr-3 mt-1.5 flex items-center border-2 ">
                 <input
-                    className="invalid:border-transparent outline-none p-4 h-full w-full "
+                    className="invalid:border-transparent text-center outline-none p-4 h-full w-full "
                     type="text"
                     placeholder='Enter your destination...'
                     onChange={e => onChangeHandler(e.target.value)}
@@ -164,7 +184,7 @@ function SearchBar({hotels}) {
                         }, 100);
                     }}
                 />
-                  <MagnifyingGlassIcon className="h-full p-2 bg-white cursor-pointer" />
+                
             </div>
                 {hotelID > 0 && (
                     <div className="absolute flex justify-center items-center">
@@ -200,12 +220,14 @@ function SearchBar({hotels}) {
                     }
                 })}
             </div>
+            {/* <div className="flex w-full h-full justify-center bg-red-200"> */}
             {/* <input className="" type="date" placeholder='Enter your check-in date...' />
             <input className="" type="date" placeholder='Enter your check-out date...' /> */}
-            <button
-                className="absolute left-2/3 top-1/3 h-11 justify-center items-center text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center">
-                Search Hotels
-            </button>
+                {/* <button
+                    className="relative h-11 justify-center items-center text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center">
+                    Search Hotels
+                </button>
+            </div> */}
         </form>
     </div>
   )
