@@ -15,7 +15,7 @@ function CloudModal({ createPod, listing, userId, open, onClose }) {
 
     const newPod = {
         name: 'Cloud Pod',
-        image: 'https://images.pexels.com/photos/2088205/pexels-photo-2088205.jpeg?cs=srgb&dl=pexels-eberhard-grossgasteiger-2088205.jpg&fm=jpg',
+        image: 'https://www.shopbala.com/static/91c9d17a1ecad3bc41499c771733d76c/d28fc/PLP-12-Mobile-1.jpg',
         user_id: userId,
         hotel_id: listing.id
     }

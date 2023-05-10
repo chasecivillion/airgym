@@ -15,7 +15,7 @@ function VaporModal({ createPod, listing, userId, open, onClose }) {
 
     const newPod = {
         name: 'Vapor Pod',
-        image: 'https://i.imgur.com/DxVYr5O.jpeg',
+        image: 'https://static.dezeen.com/uploads/2014/08/Nike-pop-up-robert-storey-studio_dezeen_784_5.jpg',
         user_id: userId,
         hotel_id: listing.id
     }

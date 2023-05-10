@@ -14,7 +14,7 @@ function BreezeModal({createPod, listing, userId, open, onClose}) {
     
     const newPod = {
         name: 'Breeze Pod',
-        image: 'https://images.pexels.com/photos/933877/pexels-photo-933877.jpeg?cs=srgb&dl=pexels-mica-asato-933877.jpg&fm=jpg',
+        image: 'https://scontent-iad3-2.xx.fbcdn.net/v/t1.6435-9/83907808_3350889531605674_3221206823252000768_n.jpg?_nc_cat=100&ccb=1-7&_nc_sid=9267fe&_nc_ohc=zCBRSTTQLJ8AX_Cmnas&_nc_ht=scontent-iad3-2.xx&oh=00_AfBIes2Mgww_rxZv_LUUVJ1_q8QZcfbnOVwC0MA-ldfnRQ&oe=64820D04',
         user_id: userId,
         hotel_id: listing.id
     }

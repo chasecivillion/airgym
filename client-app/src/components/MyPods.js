@@ -44,7 +44,7 @@ function MyPods() {
     }
 
   return (
-    <div><MyCards hotels={hotels} pods={pods} updatedPods={updatedPods} remainingPods={remainingPods}/></div>
+        <div className="z-0"><MyCards hotels={hotels} pods={pods} updatedPods={updatedPods} remainingPods={remainingPods}/></div>
   )
 }
 
