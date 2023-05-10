@@ -1,6 +1,6 @@
 import React, {useState, useEffect, useContext} from 'react'
 import { IdContext } from './IdContext'
-import PodCards from './PodCards'
+import MyCards from './MyCards'
 import { useNavigate } from 'react-router-dom'
 
 function MyPods() {
@@ -44,7 +44,7 @@ function MyPods() {
     }
 
   return (
-    <div><PodCards hotels={hotels} pods={pods} updatedPods={updatedPods} remainingPods={remainingPods}/></div>
+    <div><MyCards hotels={hotels} pods={pods} updatedPods={updatedPods} remainingPods={remainingPods}/></div>
   )
 }
 

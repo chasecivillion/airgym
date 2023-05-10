@@ -15,7 +15,7 @@ function VaporModal({ createPod, listing, userId, open, onClose }) {
 
     const newPod = {
         name: 'Vapor Pod',
-        image: 'https://repository-images.githubusercontent.com/49910095/8c5be280-5bbd-11ea-83c7-7fb50300e4df',
+        image: 'https://i.imgur.com/DxVYr5O.jpeg',
         user_id: userId,
         hotel_id: listing.id
     }
