@@ -4,13 +4,14 @@ import { useNavigate } from 'react-router-dom';
 import 'react-date-range/dist/styles.css';
 import 'react-date-range/dist/theme/default.css';
 import { format } from "date-fns";
-import { MagnifyingGlassIcon } from '@heroicons/react/20/solid';
+import { ExclamationCircleIcon, MagnifyingGlassIcon } from '@heroicons/react/20/solid';
 import { DateRangePicker } from 'react-date-range'
 
 function SearchBar({hotels}) {
 
     const navigate = useNavigate()
     const resultContainer = useRef(null)
+
 
     const [text, setText] = useState([])
     const [suggestions, setSuggestions] = useState([])
@@ -21,6 +22,7 @@ function SearchBar({hotels}) {
     const [showCalendar, setShowCalendar] = useState(false)
     const [startDate, setStartDate] = useState(new Date())
     const [endDate, setEndDate] = useState(new Date())
+    const [showError, setShowError] = useState(false)
     const formattedStartDate = format(new Date(startDate), "dd MMMM yy")
     const formattedEndDate = format(new Date(endDate), "dd MMMM yy")
     const range = `${formattedStartDate } - ${formattedEndDate}`
@@ -70,6 +72,7 @@ function SearchBar({hotels}) {
         setHotelID(0)
         setShowCalendar(false)
     }
+
     
     const handleSubmit = (e) => {
         if (hotelID === 0) {
@@ -96,9 +99,10 @@ function SearchBar({hotels}) {
             if( text.length > 0){
                 e.preventDefault()
                 setShowCalendar(true)
+                setShowError(false)
             }
             setShowCalendar(false)
-            console.log('Missing Date range, hotelID or hotel name/text')
+            setShowError(true)
         }
     }
     const handleKeyDown = (e) => {
@@ -115,7 +119,6 @@ function SearchBar({hotels}) {
             setText([])
         } else if (e.key === "Enter" && hotelID === 0) {
             const selectedSuggestion = suggestions[focusedIndex]
-            console.log(selectedSuggestion)
             if (selectedSuggestion) {
                 setFocusedSuggestion(selectedSuggestion.name)
                 setText(selectedSuggestion.name)
@@ -138,6 +141,14 @@ function SearchBar({hotels}) {
         } 
         setFocusedIndex(nextIndexCount)
     }
+
+    const areaClose = (e) => {
+        if (e.target.classList.contains('errorModal')) {
+            setShowError(false)
+        }
+    }
+
+
     return (
     <div className="relative bg-black h-full w-full flex justify-center items-center">
         <img
@@ -146,10 +157,10 @@ function SearchBar({hotels}) {
             onClick={resetText}
         />
             <div className="absolute cursor-default h-1/12 top-[10%] w-full justify-center">
-                <h1 className='flex relative justify-center top-0 text-center md:text-2xl lg:text-8xl font-bold text-white opacity-90'>
+                <h1 onClick={resetText} className='flex relative justify-center top-0 text-center md:text-2xl lg:text-8xl font-bold text-white opacity-90'>
                     ≡
                 </h1>
-                <h1 className='flex relative cursor-default justify-center top-0 text-center md:text-2xl lg:text-3xl font-bold text-white opacity-90'>
+                <h1 onClick={resetText} className='flex relative cursor-default justify-center top-0 text-center md:text-2xl lg:text-3xl font-bold text-white opacity-90'>
                     Activewear for whenever, wherever
                 </h1>
             </div>
@@ -166,7 +177,7 @@ function SearchBar({hotels}) {
 
                         </div>
                         <button
-                            className="flex text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-2 py-2.5 justify-center">
+                            className="flex text-white bg-cyan-400 hover:bg-cyan-500 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-2 py-2.5 justify-center">
                             Search
                         </button>
                     </div>
@@ -191,7 +202,7 @@ function SearchBar({hotels}) {
                         <DateRangePicker
                         ranges={[selectionRange]}
                         minDate={new Date()}
-                        rangeColors={["#FD5861"]}
+                            rangeColors={["rgb(34 211 238)"]}
                         onChange={handleSelect}
                         className="absolute"
                         />
@@ -220,15 +231,19 @@ function SearchBar({hotels}) {
                     }
                 })}
             </div>
-            {/* <div className="flex w-full h-full justify-center bg-red-200"> */}
-            {/* <input className="" type="date" placeholder='Enter your check-in date...' />
-            <input className="" type="date" placeholder='Enter your check-out date...' /> */}
-                {/* <button
-                    className="relative h-11 justify-center items-center text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center">
-                    Search Hotels
-                </button>
-            </div> */}
         </form>
+        <div className='absolute'>
+            {showError ? 
+                <div role="alert">
+                    <div onClick={areaClose} className='errorModal fixed z-[9999] w-screen h-screen inset-0 bg-black bg-opacity-25 flex justify-center items-center'>
+                    <div className="border border-t-0 border-red-400 rounded-b bg-red-100 px-4 py-3 text-red-700">
+                        <ExclamationCircleIcon className="flex h-6" />
+                        <p>Please choose your travel dates.</p>
+                    </div>
+                </div>
+                </div>
+            : null}
+        </div>
     </div>
   )
 }

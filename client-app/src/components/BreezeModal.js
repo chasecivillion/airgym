@@ -1,7 +1,7 @@
 import { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 
-function BreezeModal({createPod, listing, userId, open, onClose}) {
+function BreezeModal({createPod, listing, userId, open, onClose, openAddModal}) {
 
     const navigate = useNavigate()
     if (!open) return null;
@@ -33,9 +33,10 @@ function BreezeModal({createPod, listing, userId, open, onClose}) {
             .then(r => {
                 if (r.ok) {
                     r.json()
-                    navigate('/')
+                    onClose()
+                    openAddModal()
                 } else if (r.status !== 201) {
-                   navigate('/sign_up')
+                   navigate('/hotels/pods')
                 }
             })
     }

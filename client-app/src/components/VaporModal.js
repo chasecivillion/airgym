@@ -2,7 +2,7 @@ import { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 
 
-function VaporModal({ createPod, listing, userId, open, onClose }) {
+function VaporModal({ createPod, listing, userId, open, onClose, openAddModal }) {
 
     const navigate = useNavigate()
     if (!open) return null;
@@ -34,9 +34,10 @@ function VaporModal({ createPod, listing, userId, open, onClose }) {
             .then(r => {
                 if (r.ok) {
                     r.json()
-                    navigate('/')
+                    onClose()
+                    openAddModal()
                 } else if (r.status !== 201) {
-                    navigate('/sign_up')
+                    navigate('/hotels/pods')
                 }
             })
     }

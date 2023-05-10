@@ -29,61 +29,54 @@ function Header() {
             .then( response => response.json())
             .then( setCurrentUser("guest"))
             .then( setUserId(-1))
-            window.location.reload()
+            .then(window.location.reload())
     }
     if (currentUser !== "guest") {
         return (
             <header className="sticky top-0 z-50 bg-white shadow-md p-3">
-                <div className="grid grid-cols-3">
-                    <div className="flex items-center">
-                        <img 
-                            src="https://www.pngall.com/wp-content/uploads/5/Wind-PNG-Free-Image.png"
-                            className="max-w-[50px]"
-                            alt="logo"/>
-                            <h1 className='font-sans font-bold p-3'>
-                            AirGym
-                            </h1>
+                <div className="">
+                </div>
+                <div className="flex w-full grid grid-cols-3 items-center text-4xl font-bold">
+                    <div>
+                        <Link to='/mypods'> My Pods. </Link>
+                    </div>
+                    <div className="flex w-full justify-center">
+                        <Link to='/'>
+                            ≡Airgym.
+                        </Link>
                     </div>
                     <div className="flex items-center justify-end">
-                        <Link to='/'> <HomeIcon className="h-8 bg-red-400 text-white rounded-full p-2" /> </Link>
-                        <div>
-                            <Link to='/mypods'> My Pods </Link>
-                        </div>
-                    </div>
-                    <div className="flex items-center justify-end text-gray-500">
-                        <div className="flex relative pl-24">
-                        Welcome back, {currentUser}!
-                        </div>
-                        <div style={{ cursor: 'pointer' }} onClick={handleLogOut}  className="flex items-center space-x-2 border-2 p-2 rounded-full">
+                        <div style={{ cursor: 'pointer' }} onClick={handleLogOut}  className="flex items-center space-x-2  p-2 rounded-full">
                             <div>
                                 Logout
                             </div>
-                            <UserCircleIcon className="flex h-6" />
+                            <UserCircleIcon className="flex text-slate-600 h-8" />
                         </div>
                     </div>
-            </div>
-            {/* <div className="flex justify-end">
-                Welcome back, {currentUser}!
-            </div> */}
-        </header>
+                </div>
+            </header>
         )
     }
     
     return (
-        <header className="sticky top-0 z-50 bg-white shadow-md p-3 grid grid-cols-3">
+        <header className="sticky top-0 z-50 bg-white shadow-md p-3">
             <div className="">
             </div>
-            <div className="flex justify-center items-center text-4xl font-bold">
-                <Link to='/'> 
-                    ≡Airgym.
-                </Link>
-            </div>
-            <div className="flex items-center justify-end text-gray-500">
-                <div style={{ cursor: 'pointer' }} onClick={handleClick}  className="flex items-center space-x-2 border-2 p-2 rounded-full">
-                    <div>
-                        Login
+            <div className="flex w-full grid grid-cols-3 items-center text-4xl font-bold">
+                <div>
+                </div>
+                <div className="flex w-full justify-center">
+                    <Link to='/'> 
+                        ≡Airgym.
+                    </Link>
+                </div>
+                <div className="flex items-center justify-end">
+                    <div style={{ cursor: 'pointer' }} onClick={handleClick}  className="flex items-center space-x-2 p-2 rounded-full">
+                        <div>
+                            Login
+                        </div>
+                        <UserCircleIcon className="flex text-slate-600 h-8" />
                     </div>
-                    <UserCircleIcon className="flex h-6" />
                 </div>
             </div>
             <SigninModal appear={showSignIn} disappear={() => setShowSignIn(false)} toggle={signInSignUp} />

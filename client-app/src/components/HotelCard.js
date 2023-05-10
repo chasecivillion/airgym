@@ -3,8 +3,8 @@ import React from 'react'
 
 function HotelCard({listing}) {
   return (
-    <div>
-      <div className="flex py-7 px-2 border-b cursor-pointer hover:opacity-80 hover:shadow-lg transition duration-200 ease-out">
+    <div >
+      <div className="flex py-7 px-2 cursor-pointer hover:opacity-80 hover:shadow-lg transition duration-200 ease-out">
         <div className="relative h-24 w-40 md:h-52 md:w-80 flex-shrink-0">
           <img className="h-full w-full rounded-2xl" src={listing.images} alt={listing.name}/>
         </div>

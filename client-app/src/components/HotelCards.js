@@ -15,7 +15,7 @@ function HotelCards({listing, range}) {
   }
 
   return (
-      <div style={{cursor: 'pointer'}} onClick={handleClick} >
+      <div className="cursor-pointer" onClick={handleClick} >
           <HotelCard listing ={listing}/>
       </div>
   )

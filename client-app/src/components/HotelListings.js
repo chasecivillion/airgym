@@ -13,7 +13,7 @@ function HotelListings() {
     const range = location.state?.range
 
     if (!formattedHotels || !range) {
-        return <div> No hotels found</div>
+        return <div> </div>
     }
 
     const hotels = formattedHotels.map((listing) => {

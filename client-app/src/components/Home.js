@@ -8,6 +8,7 @@ import { BoltIcon } from '@heroicons/react/24/outline';
 import PopularCards from './PopularCards';
 import TrendingFeature from './TrendingFeature';
 import SearchBar from './SearchBar';
+import DeleteModal from './DeleteModal';
 
 function Home() {
     const [hotels, setHotels] = useState([])

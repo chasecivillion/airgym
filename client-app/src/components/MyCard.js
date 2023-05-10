@@ -1,18 +1,31 @@
 import React, {useState} from 'react'
 import EditModal from './EditModal';
+import DeleteModal from './DeleteModal';
+import UpdateModal from './UpdateModal';
 
 function MyCard({hotel, pod, remainingPods, updatedPods}) {
 
 
     const [showEditModal, setShowEditModal] = useState(false);
+    const [showDeleteModal, setShowDeleteModal] = useState(false)
+    const [showUpdateModal, setShowUpdateModal] = useState(false)
 
     const deletePod = () => {
         fetch(`/user/${pod.id}/pods`, { method: "DELETE" })
             .then(remainingPods(pod.id))
+            .then(setShowDeleteModal(false))
     }
 
-    const openModal = () => {
+    const openEditModal = () => {
         setShowEditModal(true)
+    }
+
+    const openDeleteModal = () => {
+        setShowDeleteModal(true)
+    }
+
+    const openUpdateModal = () => {
+        setShowUpdateModal(true)
     }
     
     const breeze = "flex h-full items-center font-bold text-4xl bg-gradient-to-r from-teal-400 via-sky-300 to-blue-300 inline-block text-transparent bg-clip-text"
@@ -34,7 +47,7 @@ function MyCard({hotel, pod, remainingPods, updatedPods}) {
 
     return (
         <div>
-            <div className={showEditModal ? "" : "flex py-7 px-2 border-b cursor-pointer hover:opacity-90 hover:shadow-lg transition duration-200 ease-out"}>
+            <div className={showEditModal || showDeleteModal ? "" : "flex py-7 px-2 border-b cursor-pointer hover:opacity-90 hover:shadow-lg transition duration-200 ease-out"}>
                 <div className="relative h-24 w-40 md:h-52 md:w-80 flex-shrink-0">
                     <img className="h-full w-full rounded-2xl" src={hotel.images} alt={hotel.name} />
                 </div>
@@ -53,10 +66,12 @@ function MyCard({hotel, pod, remainingPods, updatedPods}) {
                 </div>
                     <div className="flex h-24 w-40 items-end sm:h-52 sm:w-60 md:h-52 md:w-80 flex-shrink-0">
                         <div className="flex h-1/3 w-full grid grid-cols-2 ">
-                            <button className="sm:text-md md:text-lg lg:text-2xl xl:text-2xl text-purple-600 font-semibold rounded-sm border border-purple-200 hover:text-white hover:bg-purple-600 hover:border-transparent focus:outline-none focus:ring-2 focus:ring-purple-600 focus:ring-offset-2" onClick={deletePod}>Delete Pod</button>
-                            <button className="sm:text-md md:text-lg lg:text-2xl xl:text-2xl text-purple-600 font-semibold rounded-sm border border-purple-200 hover:text-white hover:bg-purple-600 hover:border-transparent focus:outline-none focus:ring-2 focus:ring-purple-600 focus:ring-offset-2" onClick={openModal}>Edit Pod</button>
+                            <button className="sm:text-md md:text-lg lg:text-2xl xl:text-2xl text-purple-600 font-semibold rounded-sm border border-purple-200 hover:text-white hover:bg-purple-600 hover:border-transparent focus:outline-none focus:ring-2 focus:ring-purple-600 focus:ring-offset-2" onClick={openDeleteModal}>Delete Pod</button>
+                            <button className="sm:text-md md:text-lg lg:text-2xl xl:text-2xl text-purple-600 font-semibold rounded-sm border border-purple-200 hover:text-white hover:bg-purple-600 hover:border-transparent focus:outline-none focus:ring-2 focus:ring-purple-600 focus:ring-offset-2" onClick={openEditModal}>Edit Pod</button>
                         </div>
-                    <EditModal updatedPods={updatedPods} name={pod.name} image={pod.image} id={pod.id} open={showEditModal} onClose={() => setShowEditModal(false)} />
+                    <EditModal updatedPods={updatedPods} name={pod.name} image={pod.image} id={pod.id} open={showEditModal} onClose={() => setShowEditModal(false)} openUpdateModal={openUpdateModal} />
+                    <DeleteModal id={pod.id} open={showDeleteModal} onClose={() => setShowDeleteModal(false)} deletePod={deletePod}/>
+                    <UpdateModal open={showUpdateModal} onClose={() => setShowUpdateModal(false)}/>
                     </div>
                 <div>
                     

@@ -14,7 +14,7 @@ function Travelers({travelers, name}) {
   })
 
   return (
-    <div class="relative overflow-hidden">
+    <div className="relative overflow-hidden">
       <img src="https://images.pexels.com/photos/1612351/pexels-photo-1612351.jpeg?cs=srgb&dl=pexels-eberhard-grossgasteiger-1612351.jpg&fm=jpg" alt="Avatar" className="object-cover brightness-75 w-full h-full" />
       <div className="cursor-default absolute w-full py-0 bottom-[90%] inset-x-0 text-white text-3xl px-12 leading-4">
         Recent stays

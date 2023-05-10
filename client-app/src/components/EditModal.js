@@ -1,6 +1,6 @@
 import { useState } from "react";
 
-function EditModal({ id, name, image, key, open, onClose, updatedPods }) {
+function EditModal({ id, name, image, key, open, onClose, updatedPods, openUpdateModal }) {
 
     const [ podImage, setPodImage ] = useState(image)
     const [ podChoice, setPodChoice ] = useState(name)
@@ -53,7 +53,8 @@ function EditModal({ id, name, image, key, open, onClose, updatedPods }) {
         })
             .then(r => r.json())
             .then(updatedPod => updatedPods(updatedPod))
-            console.log('updated!')
+            onClose()
+            openUpdateModal()
     }
 
     const selectPod = (e) => {
@@ -72,21 +73,26 @@ function EditModal({ id, name, image, key, open, onClose, updatedPods }) {
     return (
         <div className="">
             <div onClick={areaClose} id={id} className='fixed z-[9999] w-screen h-screen inset-0 bg-black bg-opacity-25 backdrop-blur-sm flex justify-center items-center'>
-                <div className='w-[600px] flex flex-col'>
+                <div className='w-[500px] flex flex-col'>
                     <div>
-                        <button onClick={onClose} className='absolute top-[60px] start-[890px] end-[350px] text-white text-xl'>X</button>
-                        <div className='bg-white p-2 rounded'>Edit Modal
-                            <img className="w-1/2" src={podImage} alt="breeze" />
-                            <div>
-                                <button onClick={selectPod} id="breeze" className="px-4 py-1 text-sm text-purple-600 font-semibold rounded-full border border-purple-200 hover:text-white hover:bg-purple-600 hover:border-transparent focus:outline-none focus:ring-2 focus:bg-purple-600  focus:text-white"> Breeze Pod </button>
-                                <button onClick={selectPod} id="cloud" className="px-4 py-1 text-sm text-purple-600 font-semibold rounded-full border border-purple-200 hover:text-white hover:bg-purple-600 hover:border-transparent focus:outline-none focus:ring-2 focus:bg-purple-600  focus:text-white"> Cloud Pod </button>
-                                <button onClick={selectPod} id="vapor" className="px-4 py-1 text-sm text-purple-600 font-semibold rounded-full border border-purple-200 hover:text-white hover:bg-purple-600 hover:border-transparent focus:outline-none focus:ring-2 focus:bg-purple-600  focus:text-white"> Vapor Pod </button>
+                        <button onClick={onClose} className='absolute top-[40px] start-[465px] end-[0px] text-black text-xl'>X</button>
+                        <div className='bg-white rounded-md'>
+                            <div className="flex pt-4 pb-2 justify-center">
+                                Current gear: {name}  
+                            </div>
+                            <div className="flex justify-center">
+                                <img className="rounded-md pr-5 pl-5 pt-5 pb-1 " src={podImage} alt="breeze" />
+                            </div>
+                            <div className="flex p-2 grid grid-cols-3 items-center justify-center">
+                                <button onClick={selectPod} id="breeze" className="p-3 text-sm text-purple-600 font-semibold rounded-full hover:text-white hover:bg-purple-600 hover:border-transparent focus:outline-none focus:ring-2 focus:bg-purple-600  focus:text-white"> Breeze Pod </button>
+                                <button onClick={selectPod} id="cloud" className="p-3 text-sm text-purple-600 font-semibold rounded-full hover:text-white hover:bg-purple-600 hover:border-transparent focus:outline-none focus:ring-2 focus:bg-purple-600  focus:text-white"> Cloud Pod </button>
+                                <button onClick={selectPod} id="vapor" className="p-3 text-sm text-purple-600 font-semibold rounded-full hover:text-white hover:bg-purple-600 hover:border-transparent focus:outline-none focus:ring-2 focus:bg-purple-600  focus:text-white"> Vapor Pod </button>
                                 <h3 className="p-8 text-center">  
                                 </h3>
+                                <form className="flex w-full h-2/3 justify-center text-center" onSubmit={handleSubmit}>
+                                    <button className="w-full font-bold px-4 py-2 pt-2 text-md text-purple-600 font-semibold rounded-sm border border-purple-200 hover:text-white hover:bg-purple-600 hover:border-transparent focus:outline-none focus:ring-2 focus:ring-purple-600 focus:ring-offset-2"> Confirm </button>
+                                </form>
                             </div>
-                            <form className="text-center" onSubmit={handleSubmit}>
-                                <button className="px-4 py-1 text-sm text-purple-600 font-semibold rounded-full border border-purple-200 hover:text-white hover:bg-purple-600 hover:border-transparent focus:outline-none focus:ring-2 focus:ring-purple-600 focus:ring-offset-2"> Confirm Change </button>
-                            </form>
                         </div>
                     </div>
                 </div>

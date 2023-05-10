@@ -29,7 +29,7 @@ function SigninModal({ appear, disappear, toggle }) {
                     <h2 className="cursor-default mt-6 text-center text-3xl font-extrabold text-gray-900">
                         Login to your account
                     </h2>
-                    <p className="cursor-default mt-2 text-center text-sm text-gray-600 mt-5">
+                    <div className="cursor-default mt-2 text-center text-sm text-gray-600 mt-5">
                         Don't have an account yet?{" "}
                         <div
                         className="ml-[270px] mr-[270px] font-medium text-purple-600 hover:cursor-pointer hover:text-purple-400"
@@ -37,7 +37,7 @@ function SigninModal({ appear, disappear, toggle }) {
                         onClick={signUpPortal}>
                             Signup
                         </div>
-                    </p>
+                    </div>
                     <Signin/>
                 </div>
             </div>

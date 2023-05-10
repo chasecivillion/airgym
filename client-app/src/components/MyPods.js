@@ -44,7 +44,11 @@ function MyPods() {
     }
 
   return (
+    <div>
         <div className="z-0"><MyCards hotels={hotels} pods={pods} updatedPods={updatedPods} remainingPods={remainingPods}/></div>
+        <div className="pb-96">
+        </div>
+    </div>
   )
 }
 
