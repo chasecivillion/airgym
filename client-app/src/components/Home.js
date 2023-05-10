@@ -40,7 +40,7 @@ function Home() {
                         <img className="h-1/2 w-1/2 "src="https://www.zliving.com/wp-content/uploads/2018/10/travel-jump.jpg" alt="jumping man" />
                     </div>
                     <h3 className="flex justify-center font-bold font-sans text-gray-600">
-                        AirGym is a lending program that provides new and gently-used activewear.
+                        Airgym is a lending program that provides new and gently-used activewear for travelers.
                     </h3>
                     <h3 className="pt-2 flex justify-center font-bold font-sans text-gray-600">
                         We partner with hotels to make the lending experience seamless and lightweight

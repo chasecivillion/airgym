@@ -1,3 +1,4 @@
+import { UserIcon } from "@heroicons/react/24/outline";
 import Signin from "./Signin";
 import Signup from "./Signup";
 
@@ -11,7 +12,7 @@ function SigninModal({ appear, disappear, toggle }) {
         }
     }
 
-    const doThis = (e) => {
+    const signUpPortal = (e) => {
         if (e.target.id === "sign-up"){
             toggle()
         }
@@ -22,22 +23,18 @@ function SigninModal({ appear, disappear, toggle }) {
             <div className='w-[600px] flex flex-col'>
                 <button onClick={disappear} className='text-white text-xl place-self-end'>X</button>
                 <div className='mb-10 bg-white rounded'>
-                    <div className="flex justify-center">
-                        <img
-                            alt=""
-                            className="h-48 w-48"
-                            src="https://media.istockphoto.com/id/910293318/vector/running-men-icon.jpg?s=612x612&w=0&k=20&c=G5Azj4uEBHjfA7WXRQbsNx0YBOWIWpvoMvptOaJtEVI=" 
-                        />
+                    <div className="flex pt-8 justify-center">
+                        <UserIcon className="h-12"/>
                     </div>
-                    <h2 className="mt-6 text-center text-3xl font-extrabold text-gray-900">
+                    <h2 className="cursor-default mt-6 text-center text-3xl font-extrabold text-gray-900">
                         Login to your account
                     </h2>
-                    <p className="mt-2 text-center text-sm text-gray-600 mt-5">
+                    <p className="cursor-default mt-2 text-center text-sm text-gray-600 mt-5">
                         Don't have an account yet?{" "}
                         <div
                         className="ml-[270px] mr-[270px] font-medium text-purple-600 hover:cursor-pointer hover:text-purple-400"
                         id="sign-up"
-                        onClick={doThis}>
+                        onClick={signUpPortal}>
                             Signup
                         </div>
                     </p>

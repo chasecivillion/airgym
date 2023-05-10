@@ -1,3 +1,4 @@
+import { UserPlusIcon } from "@heroicons/react/24/outline";
 import Signin from "./Signin";
 import Signup from "./Signup";
 
@@ -12,7 +13,7 @@ function SignupModal({ signUpAppear, signUpDisappear, toggle }) {
         }
     }
 
-    const doThis = (e) => {
+    const signInPortal = (e) => {
         if (e.target.id === "sign-in") {
             toggle()
         }
@@ -23,22 +24,18 @@ function SignupModal({ signUpAppear, signUpDisappear, toggle }) {
             <div className='w-[600px] flex flex-col'>
                 <button onClick={signUpDisappear} className='text-white text-xl place-self-end'>X</button>
                 <div className='mb-10 bg-white rounded'>
-                    <div className="flex justify-center">
-                        <img
-                            alt=""
-                            className="h-48 w-48"
-                            src="https://media.istockphoto.com/id/910293318/vector/running-men-icon.jpg?s=612x612&w=0&k=20&c=G5Azj4uEBHjfA7WXRQbsNx0YBOWIWpvoMvptOaJtEVI="
-                        />
+                    <div className="flex pt-9 justify-center">
+                        <UserPlusIcon className="h-12"/>
                     </div>
-                    <h2 className="mt-6 text-center text-3xl font-extrabold text-gray-900">
+                    <h2 className="cursor-default mt-6 text-center text-3xl font-extrabold text-gray-900">
                         Create an Account
                     </h2>
-                    <p className="mt-2 text-center text-sm text-gray-600 mt-5">
+                    <p className="cursor-default mt-2 text-center text-sm text-gray-600 mt-5">
                         Already have an account?{" "}
                         <div
                             className="ml-[270px] mr-[270px] font-medium text-purple-600 hover:cursor-pointer hover:text-purple-400"
                             id="sign-in"
-                            onClick={doThis}>
+                            onClick={signInPortal}>
                             Signin
                         </div>
                     </p>
