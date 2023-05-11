@@ -152,11 +152,11 @@ function SearchBar({hotels}) {
     return (
     <div className="relative bg-black h-full w-full flex justify-center items-center">
         <img
-            src="https://wallpaper.dog/large/10708530.jpg"
-            className="inset-0 opacity-60 object-cover w-full h-full "
+                src="https://images.pexels.com/photos/8985078/pexels-photo-8985078.jpeg?auto=compress&cs=tinysrgb&h=1012&fit=crop&w=1800"
+            className="inset-0 opacity-90 object-cover w-full h-full "
             onClick={resetText}
         />
-            <div className="absolute cursor-default h-1/12 top-[10%] w-full justify-center">
+            <div className="absolute cursor-default h-1/12 top-[6%] w-full justify-center">
                 <h1 onClick={resetText} className='flex relative justify-center top-0 text-center md:text-2xl lg:text-8xl font-bold text-white opacity-90'>
                     ≡
                 </h1>

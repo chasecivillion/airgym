@@ -19,7 +19,7 @@ function Travelers({travelers, name}) {
       <div className="cursor-default absolute w-full py-0 bottom-[90%] inset-x-0 text-white text-3xl px-12 leading-4">
         Recent stays
       </div>
-      <div className="absolute text-center w-full py-0 bottom-[65%] inset-x-0 px-12 leading-4 items-center grid grid-cols-3 text-white">
+      <div className="absolute h-1/4 text-center w-full py-0 bottom-[65%] inset-x-0 px-12 leading-4 items-center grid grid-cols-3 text-white">
         {travelerList}
       </div>
     </div>

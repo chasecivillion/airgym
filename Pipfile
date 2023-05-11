@@ -19,6 +19,7 @@ urllib3 = "*"
 pyopenssl = "*"
 pycryptodome = "*"
 pyrebase4 = "*"
+faker = "*"
 
 [dev-packages]
 

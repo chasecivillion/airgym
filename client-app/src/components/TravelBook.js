@@ -17,7 +17,7 @@ function TravelBook() {
   const [travelers, setTravelers] = useState([])
 
   useEffect(() => {
-    fetch(`/hotels/986`)
+    fetch(`/hotels/${id}`)
       .then(r => r.json())
       .then(obj => setTravelers(obj[0]['users']))
   }, [])

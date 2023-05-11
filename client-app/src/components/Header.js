@@ -27,6 +27,7 @@ function Header() {
         // const user = {user: currentUser}
         fetch("/sign_out")
             .then( response => response.json())
+            .then( setShowSignIn(false))
             .then( setCurrentUser("guest"))
             .then( setUserId(-1))
             .then(window.location.reload())

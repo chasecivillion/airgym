@@ -5,8 +5,13 @@ import Signin from './Signin';
 import { basicSchema } from '../FormSchema/BasicSchema';
 import '../index.css';
 import SigninModal from './SigninModal';
+import NewUserAddModal from './NewUserAddModal';
+import UserFailModal from './UserFailModal';
 
 function Signup() {
+
+    const [showNewUserAddModal, setShowNewUserAddModal] = useState(false)
+    const [showUserFailModal, setShowUserFailModal] = useState(false)
     
     const onSubmit = (values, actions) => {
         
@@ -23,16 +28,9 @@ function Signup() {
             .then(r => {
                 if (r.ok) {
                     r.json()
-                    .then(console.log('success'))
-                    return (
-                        <main>
-                            <NavLink to='/'>
-                                <SigninModal />
-                            </NavLink>
-                        </main>
-                    )
+                    .then(setShowNewUserAddModal(true))
                 } else {
-                    console.log('failure')
+                    setShowUserFailModal(true)
                 }
             })
             actions.resetForm()
@@ -118,6 +116,18 @@ function Signup() {
                     Create Account
                 </button>
             </form>
+            {showNewUserAddModal ? (
+                <NewUserAddModal
+                    open={showNewUserAddModal}
+                    onClose={() => setShowNewUserAddModal(false)}
+                />
+            ) : null}
+            {showUserFailModal ? (
+                <UserFailModal
+                    open={showUserFailModal}
+                    onClose={() => setShowUserFailModal(false)}
+                />
+            ) : null}
         </div>
     );
 }
