@@ -23,7 +23,7 @@ class User(db.Model, SerializerMixin):
 
     @validates('email')
     def email_address(self, key, email):
-        if '@' and '.com' in email:
+        if '@' or '.com' or '.edu' in email:
             return email
         elif not email:
             raise ValueError('Email must be provided')

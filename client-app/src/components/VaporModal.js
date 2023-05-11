@@ -76,15 +76,11 @@ function VaporModal({ createPod, listing, userId, open, onClose, openAddModal })
                                 <img className="rounded-md" src='https://static.dezeen.com/uploads/2014/08/Nike-pop-up-robert-storey-studio_dezeen_784_5.jpg' alt="cloud" />
                             </div>
                         </div>
-                        <h3 className="pb-4 text-center"> The Vapor Pod is geared towards athletes looking for performance ready gear
+                        <h3 className="pb-4 text-center"> It's like transporting your closet anywhere in the globe. Vapor pods are custom-tailored to fit your athletic needs. Activewear is brand-new and always in-season, including boutique brands unique to your travel destination. 
                         </h3>
                         <form className="pt-2 pb-8 text-center" onSubmit={handleSubmit}>
                             <button className="px-4 py-1 text-2xl text-purple-600 font-semibold rounded-full border border-purple-200 hover:text-white hover:bg-purple-600 hover:border-transparent focus:outline-none focus:ring-2 focus:ring-purple-600 focus:ring-offset-2"> Add Pod </button>
                         </form>
-
-
-
-
                     </div>
                 </div>
             </div>

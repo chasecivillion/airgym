@@ -4,7 +4,7 @@ import { useNavigate } from 'react-router-dom';
 import 'react-date-range/dist/styles.css';
 import 'react-date-range/dist/theme/default.css';
 import { format } from "date-fns";
-import { ExclamationCircleIcon, MagnifyingGlassIcon } from '@heroicons/react/20/solid';
+import { ExclamationCircleIcon } from '@heroicons/react/20/solid';
 import { DateRangePicker } from 'react-date-range'
 
 function SearchBar({hotels}) {
@@ -164,7 +164,7 @@ function SearchBar({hotels}) {
                     Activewear for whenever, wherever
                 </h1>
             </div>
-        <form className="absolute top-1/3 left-0 right-0 bottom-0 flex flex-col justify-center items-center" onSubmit={handleSubmit}>
+        <form className="resetText absolute top-1/3 left-0 right-0 bottom-0 flex flex-col justify-center items-center" onSubmit={handleSubmit}>
                 <div className="absolute flex grid grid-cols-3 w-full justify-end top-1.5">
                     <div>
     
@@ -195,17 +195,18 @@ function SearchBar({hotels}) {
                         }, 100);
                     }}
                 />
-                
             </div>
                 {hotelID > 0 && (
-                    <div className="absolute flex justify-center items-center">
-                        <DateRangePicker
-                        ranges={[selectionRange]}
-                        minDate={new Date()}
+                    <div className="relative flex w-1/3 justify-center items-center mt-16 h-full">
+                        <div className="absolute flex justify-center items-center">
+                            <DateRangePicker
+                            ranges={[selectionRange]}
+                            minDate={new Date()}
                             rangeColors={["rgb(34 211 238)"]}
-                        onChange={handleSelect}
-                        className="absolute"
-                        />
+                            onChange={handleSelect}
+                            className="absolute"
+                            />
+                        </div>
                     </div>
                     )
                 }
@@ -236,7 +237,7 @@ function SearchBar({hotels}) {
             {showError ? 
                 <div role="alert">
                     <div onClick={areaClose} className='errorModal fixed z-[9999] w-screen h-screen inset-0 bg-black bg-opacity-25 flex justify-center items-center'>
-                    <div className="border border-t-0 border-red-400 rounded-b bg-red-100 px-4 py-3 text-red-700">
+                    <div className="border border-t-0 border-yellow-400 rounded-b bg-yellow-100 px-4 py-3 text-yellow-700">
                         <ExclamationCircleIcon className="flex h-6" />
                         <p>Please choose your travel dates.</p>
                     </div>

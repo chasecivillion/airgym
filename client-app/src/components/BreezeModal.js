@@ -75,7 +75,7 @@ function BreezeModal({createPod, listing, userId, open, onClose, openAddModal}) 
                                 <img className="rounded-md" src='https://scontent-iad3-2.xx.fbcdn.net/v/t1.6435-9/83907808_3350889531605674_3221206823252000768_n.jpg?_nc_cat=100&ccb=1-7&_nc_sid=9267fe&_nc_ohc=zCBRSTTQLJ8AX_Cmnas&_nc_ht=scontent-iad3-2.xx&oh=00_AfBIes2Mgww_rxZv_LUUVJ1_q8QZcfbnOVwC0MA-ldfnRQ&oe=64820D04' alt="breeze" />
                             </div>
                         </div>
-                        <h3 className="pb-4 text-center"> The Breeze Pod is geared towards athletes looking for performance ready gear
+                        <h3 className="pb-4 text-center"> Things are looking breezy. Keep things light with this pod which includes one pair of gently used activewear (shirt and shorts), a water bottle and basic toiletries. All clothes are carefully inspected and freshly laundered before delivery.
                         </h3>
                         <form className="pt-2 pb-8 text-center" onSubmit={handleSubmit}>
                             <button className="px-4 py-1 text-2xl text-purple-600 font-semibold rounded-full border border-purple-200 hover:text-white hover:bg-purple-600 hover:border-transparent focus:outline-none focus:ring-2 focus:ring-purple-600 focus:ring-offset-2"> Add Pod </button>

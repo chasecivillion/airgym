@@ -7,7 +7,7 @@ function EditModal({ id, name, image, key, open, onClose, updatedPods, openUpdat
 
     const breeze = 'https://scontent-iad3-2.xx.fbcdn.net/v/t1.6435-9/83907808_3350889531605674_3221206823252000768_n.jpg?_nc_cat=100&ccb=1-7&_nc_sid=9267fe&_nc_ohc=zCBRSTTQLJ8AX_Cmnas&_nc_ht=scontent-iad3-2.xx&oh=00_AfBIes2Mgww_rxZv_LUUVJ1_q8QZcfbnOVwC0MA-ldfnRQ&oe=64820D04'
 
-    const cloud = 'https://www.shopbala.com/static/91c9d17a1ecad3bc41499c771733d76c/d28fc/PLP-12-Mobile-1.jpg'
+    const cloud = 'https://i.imgur.com/20a8lqF.png'
 
     const vapor = 'https://static.dezeen.com/uploads/2014/08/Nike-pop-up-robert-storey-studio_dezeen_784_5.jpg'
 
@@ -75,13 +75,13 @@ function EditModal({ id, name, image, key, open, onClose, updatedPods, openUpdat
             <div onClick={areaClose} id={id} className='fixed z-[9999] w-screen h-screen inset-0 bg-black bg-opacity-25 backdrop-blur-sm flex justify-center items-center'>
                 <div className='w-[500px] flex flex-col'>
                     <div>
-                        <button onClick={onClose} className='absolute top-[40px] start-[465px] end-[0px] text-black text-xl'>X</button>
+                        <button onClick={onClose} className='relative flex w-full justify-end text-black text-xl'>X</button>
                         <div className='bg-white rounded-md'>
                             <div className="flex pt-4 pb-2 justify-center">
                                 Current gear: {name}  
                             </div>
                             <div className="flex justify-center">
-                                <img className="rounded-md pr-5 pl-5 pt-5 pb-1 " src={podImage} alt="breeze" />
+                                <img className="rounded-md bg-red-50 pr-5 pl-5 pt-5 pb-1 " src={podImage} alt="breeze" />
                             </div>
                             <div className="flex p-2 grid grid-cols-3 items-center justify-center">
                                 <button onClick={selectPod} id="breeze" className="p-3 text-sm text-purple-600 font-semibold rounded-full hover:text-white hover:bg-purple-600 hover:border-transparent focus:outline-none focus:ring-2 focus:bg-purple-600  focus:text-white"> Breeze Pod </button>
